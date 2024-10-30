@@ -1,0 +1,17 @@
+site_name: GeospaNN
+
+theme:
+  name: "material"
+  features:
+  - search.suggest
+  
+plugins:
+  - mkdocstrings
+  - search
+
+nav:
+  - Home: index.md
+  - Overview: Overview.md
+  - How to start: start.md
+  - Examples: Examples.md
+  - Documentation: reference.md
