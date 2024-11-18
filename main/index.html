@@ -447,6 +447,7 @@ the training functions manually.</p>
           <tr class="doc-section-item">
             <td><code><span title="geospaNN.main.nn_train.model">model</span></code></td>
             <td>
+                  <code><span title="torch.nn.Module">Module</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -457,6 +458,7 @@ the training functions manually.</p>
           <tr class="doc-section-item">
             <td><code><span title="geospaNN.main.nn_train.lr">lr</span></code></td>
             <td>
+                  <code>float</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -467,6 +469,7 @@ the training functions manually.</p>
           <tr class="doc-section-item">
             <td><code><span title="geospaNN.main.nn_train.patience">patience</span></code></td>
             <td>
+                  <code>float</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -475,8 +478,20 @@ the training functions manually.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
+            <td><code><span title="geospaNN.main.nn_train.patience_cut_lr">patience_cut_lr</span></code></td>
+            <td>
+                  <code>float</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The patience for cutting the learning rate, see train() for more details.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
             <td><code><span title="geospaNN.main.nn_train.min_delta">min_delta</span></code></td>
             <td>
+                  <code>float</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -624,7 +639,9 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
 <span class="normal">107</span>
 <span class="normal">108</span>
 <span class="normal">109</span>
-<span class="normal">110</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">nn_train</span><span class="p">():</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">nn_train</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A wrapper for training the ordinary neural networks (simple MLP).</span>
 
@@ -633,13 +650,15 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
 <span class="sd">    the training functions manually.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        model:</span>
+<span class="sd">        model (torch.nn.Module):</span>
 <span class="sd">            A trainable feed-forward model that returns the output.</span>
-<span class="sd">        lr:</span>
+<span class="sd">        lr (float):</span>
 <span class="sd">            Learning rate.</span>
-<span class="sd">        patience:</span>
+<span class="sd">        patience (float):</span>
 <span class="sd">            The patience for the early stopping rule, see train() for more details.</span>
-<span class="sd">        min_delta:</span>
+<span class="sd">        patience_cut_lr (float):</span>
+<span class="sd">            The patience for cutting the learning rate, see train() for more details.</span>
+<span class="sd">        min_delta (float):</span>
 <span class="sd">            The threshold for terminating the training, see train() for more details.</span>
 
 <span class="sd">    Methods:</span>
@@ -657,7 +676,7 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
             <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
             <span class="n">lr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.01</span><span class="p">,</span>
             <span class="n">patience</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-            <span class="n">patience_cut_lr</span><span class="p">:</span> <span class="n">Optional</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">patience_cut_lr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">min_delta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.001</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="n">patience_cut_lr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -893,9 +912,7 @@ If not specified, data_train is used for testing.</p>
 
             <details class="quote">
               <summary>Source code in <code>geospaNN/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 50</span>
-<span class="normal"> 51</span>
-<span class="normal"> 52</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 52</span>
 <span class="normal"> 53</span>
 <span class="normal"> 54</span>
 <span class="normal"> 55</span>
@@ -953,7 +970,9 @@ If not specified, data_train is used for testing.</p>
 <span class="normal">107</span>
 <span class="normal">108</span>
 <span class="normal">109</span>
-<span class="normal">110</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
           <span class="n">data_train</span><span class="p">:</span> <span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">,</span>
           <span class="n">data_val</span><span class="p">:</span> <span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">,</span>
           <span class="n">data_test</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1062,6 +1081,7 @@ Users are recommended to write the training functions manually in that case.</p>
           <tr class="doc-section-item">
             <td><code><span title="geospaNN.main.nngls_train.model">model</span></code></td>
             <td>
+                  <code><span title="torch.nn.Module">Module</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1072,6 +1092,7 @@ Users are recommended to write the training functions manually in that case.</p>
           <tr class="doc-section-item">
             <td><code><span title="geospaNN.main.nngls_train.lr">lr</span></code></td>
             <td>
+                  <code>float</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1082,6 +1103,7 @@ Users are recommended to write the training functions manually in that case.</p>
           <tr class="doc-section-item">
             <td><code><span title="geospaNN.main.nngls_train.patience">patience</span></code></td>
             <td>
+                  <code>int</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1090,8 +1112,20 @@ Users are recommended to write the training functions manually in that case.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
+            <td><code><span title="geospaNN.main.nngls_train.patience_cut_lr">patience_cut_lr</span></code></td>
+            <td>
+                  <code>float</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The patience for cutting the learning rate, see train() for more details.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
             <td><code><span title="geospaNN.main.nngls_train.min_delta">min_delta</span></code></td>
             <td>
+                  <code>float</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1136,9 +1170,7 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
 
               <details class="quote">
                 <summary>Source code in <code>geospaNN/main.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">114</span>
 <span class="normal">115</span>
 <span class="normal">116</span>
 <span class="normal">117</span>
@@ -1278,7 +1310,17 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
 <span class="normal">251</span>
 <span class="normal">252</span>
 <span class="normal">253</span>
-<span class="normal">254</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">nngls_train</span><span class="p">():</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">nngls_train</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A wrapper for training the NN-GLS model.</span>
 
@@ -1288,13 +1330,15 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
 <span class="sd">    Users are recommended to write the training functions manually in that case.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        model:</span>
+<span class="sd">        model (torch.nn.Module):</span>
 <span class="sd">            A trainable feed-forward model that returns the output.</span>
-<span class="sd">        lr:</span>
+<span class="sd">        lr (float):</span>
 <span class="sd">            Learning rate.</span>
-<span class="sd">        patience:</span>
+<span class="sd">        patience (int):</span>
 <span class="sd">            The patience for the early stopping rule, see train() for more details.</span>
-<span class="sd">        min_delta:</span>
+<span class="sd">        patience_cut_lr (float):</span>
+<span class="sd">            The patience for cutting the learning rate, see train() for more details.</span>
+<span class="sd">        min_delta (float):</span>
 <span class="sd">            The threshold for terminating the training, see train() for more details.</span>
 
 <span class="sd">    Methods:</span>
@@ -1312,11 +1356,14 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
             <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
             <span class="n">lr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.01</span><span class="p">,</span>
             <span class="n">patience</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="n">patience_cut_lr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">min_delta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.001</span>
     <span class="p">):</span>
+        <span class="k">if</span> <span class="n">patience_cut_lr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">patience_cut_lr</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">patience</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lr_scheduler</span> <span class="o">=</span> <span class="n">LRScheduler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">patience</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lr_scheduler</span> <span class="o">=</span> <span class="n">LRScheduler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="n">patience_cut_lr</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">early_stopping</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span><span class="n">patience</span><span class="o">=</span><span class="n">patience</span><span class="p">,</span> <span class="n">min_delta</span><span class="o">=</span><span class="n">min_delta</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">theta_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
@@ -1355,7 +1402,8 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
               <span class="n">epoch_num</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
               <span class="n">Update_init</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
               <span class="n">Update_step</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-              <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2024</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,))</span>
+              <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2024</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)),</span>
+              <span class="n">vignette</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
               <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Train NN-GLS.</span>
 
@@ -1397,6 +1445,8 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
                 <span class="bp">self</span><span class="o">.</span><span class="n">theta_update</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">data_train</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_loader</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">vignette</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">batch_idx</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
                 <span class="n">decorrelated_preds</span><span class="p">,</span> <span class="n">decorrelated_targets</span><span class="p">,</span> <span class="n">est</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
                 <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">decorrelated_preds</span><span class="p">[:</span><span class="n">batch_size</span><span class="p">],</span> <span class="n">decorrelated_targets</span><span class="p">[:</span><span class="n">batch_size</span><span class="p">])</span>
@@ -1404,7 +1454,7 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
                 <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
             <span class="c1"># Compute estimations on held-out test set</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">val_est</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">data_val</span><span class="p">)</span>
+            <span class="n">val_est</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">data_val</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
             <span class="n">val_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">val_est</span><span class="p">,</span> <span class="n">data_val</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">early_stopping</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span>
@@ -1416,7 +1466,7 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
             <span class="n">training_log</span><span class="p">[</span><span class="s2">&quot;phi&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
             <span class="n">training_log</span><span class="p">[</span><span class="s2">&quot;tau&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
             <span class="k">if</span> <span class="n">data_test</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">test_est</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">data_test</span><span class="p">)</span>
+                <span class="n">test_est</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">data_test</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
                 <span class="n">est_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">test_est</span><span class="p">,</span> <span class="n">data_test</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
                 <span class="n">training_log</span><span class="p">[</span><span class="s2">&quot;est_loss&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">est_loss</span><span class="p">)</span>
 
@@ -1521,14 +1571,7 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
 
             <details class="quote">
               <summary>Source code in <code>geospaNN/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">160</span>
 <span class="normal">161</span>
 <span class="normal">162</span>
 <span class="normal">163</span>
@@ -1547,7 +1590,14 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
 <span class="normal">176</span>
 <span class="normal">177</span>
 <span class="normal">178</span>
-<span class="normal">179</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">theta_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">theta_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">w</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">,</span>
                  <span class="n">data</span><span class="p">:</span> <span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span>
                  <span class="p">):</span> <span class="c1">#### Can be replaced by directly using theta_update?</span>
@@ -1584,7 +1634,7 @@ patience/2" helps the convergence in many scenarios. We keep this setting as def
 
 
 <h3 id="geospaNN.main.nngls_train.train" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">train</span><span class="p">(</span><span class="n">data_train</span><span class="p">,</span> <span class="n">data_val</span><span class="p">,</span> <span class="n">data_test</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">epoch_num</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">Update_init</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">Update_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2024</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">)))</span></code>
+            <code class="highlight language-python"><span class="n">train</span><span class="p">(</span><span class="n">data_train</span><span class="p">,</span> <span class="n">data_val</span><span class="p">,</span> <span class="n">data_test</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">epoch_num</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">Update_init</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">Update_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2024</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">)),</span> <span class="n">vignette</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1763,14 +1813,7 @@ fexed-effect estimation to converge. Default value is 0.</p>
 
             <details class="quote">
               <summary>Source code in <code>geospaNN/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">188</span>
 <span class="normal">189</span>
 <span class="normal">190</span>
 <span class="normal">191</span>
@@ -1836,7 +1879,17 @@ fexed-effect estimation to converge. Default value is 0.</p>
 <span class="normal">251</span>
 <span class="normal">252</span>
 <span class="normal">253</span>
-<span class="normal">254</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
           <span class="n">data_train</span><span class="p">:</span> <span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">,</span>
           <span class="n">data_val</span><span class="p">:</span> <span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">,</span>
           <span class="n">data_test</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1844,7 +1897,8 @@ fexed-effect estimation to converge. Default value is 0.</p>
           <span class="n">epoch_num</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
           <span class="n">Update_init</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
           <span class="n">Update_step</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2024</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,))</span>
+          <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2024</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)),</span>
+          <span class="n">vignette</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
           <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Train NN-GLS.</span>
 
@@ -1886,6 +1940,8 @@ fexed-effect estimation to converge. Default value is 0.</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">theta_update</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">data_train</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_loader</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">vignette</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">batch_idx</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
             <span class="n">decorrelated_preds</span><span class="p">,</span> <span class="n">decorrelated_targets</span><span class="p">,</span> <span class="n">est</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
             <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">decorrelated_preds</span><span class="p">[:</span><span class="n">batch_size</span><span class="p">],</span> <span class="n">decorrelated_targets</span><span class="p">[:</span><span class="n">batch_size</span><span class="p">])</span>
@@ -1893,7 +1949,7 @@ fexed-effect estimation to converge. Default value is 0.</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
         <span class="c1"># Compute estimations on held-out test set</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">val_est</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">data_val</span><span class="p">)</span>
+        <span class="n">val_est</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">data_val</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
         <span class="n">val_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">val_est</span><span class="p">,</span> <span class="n">data_val</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">early_stopping</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span>
@@ -1905,7 +1961,7 @@ fexed-effect estimation to converge. Default value is 0.</p>
         <span class="n">training_log</span><span class="p">[</span><span class="s2">&quot;phi&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
         <span class="n">training_log</span><span class="p">[</span><span class="s2">&quot;tau&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
         <span class="k">if</span> <span class="n">data_test</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">test_est</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">data_test</span><span class="p">)</span>
+            <span class="n">test_est</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">data_test</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
             <span class="n">est_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">test_est</span><span class="p">,</span> <span class="n">data_test</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
             <span class="n">training_log</span><span class="p">[</span><span class="s2">&quot;est_loss&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">est_loss</span><span class="p">)</span>
 

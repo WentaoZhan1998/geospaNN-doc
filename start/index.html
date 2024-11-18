@@ -306,18 +306,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-using-conda" class="md-nav__link">
+  <a href="#option-1-using-conda" class="md-nav__link">
     <span class="md-ellipsis">
-      1: Using Conda
+      Option 1: Using Conda
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-using-pip" class="md-nav__link">
+  <a href="#option-2-using-pip" class="md-nav__link">
     <span class="md-ellipsis">
-      2: Using pip
+      Option 2: Using pip
     </span>
   </a>
   
@@ -453,18 +453,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-using-conda" class="md-nav__link">
+  <a href="#option-1-using-conda" class="md-nav__link">
     <span class="md-ellipsis">
-      1: Using Conda
+      Option 1: Using Conda
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-using-pip" class="md-nav__link">
+  <a href="#option-2-using-pip" class="md-nav__link">
     <span class="md-ellipsis">
-      2: Using pip
+      Option 2: Using pip
     </span>
   </a>
   
@@ -517,23 +517,27 @@
 
 <h2 id="installation">Installation</h2>
 <h3 id="create-and-enter-virtual-environment-recommended">Create and enter virtual environment (recommended)</h3>
-<ol>
-<li>If you haven't installed anaconda on your machine, refer to this <a href="https://docs.anaconda.com/anaconda/install/">doc</a>, follow the instruction, 
-and install the right version.</li>
-<li>Create the conda virtual environment. Refer to this <a href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">doc</a>. Example:</li>
-</ol>
+<p>Step 1: If you haven't installed anaconda on your machine, refer to this <a href="https://docs.anaconda.com/anaconda/install/">doc</a>, follow the instruction, 
+and install the right version.</p>
+<p>Step 2: Create the conda virtual environment. Refer to this <a href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">doc</a>. Example:</p>
 <pre><code># bash
 conda create -n [name of your environment] python=3.10
 </code></pre>
-<ol>
-<li>Enter the virtual environment by running:</li>
-</ol>
+<p>Step 3: Enter the virtual environment by running:</p>
 <pre><code># bash
 conda activate [name of your environment]
 </code></pre>
+<p>Step 4: In the current version of geospaNN, to use the R-package <a href="https://github.com/ArkajyotiSaha/BRISC">BRISC</a> 
+for spatial parameter estimation (through rpy2), we need R installed in the environment. In order to install R, simply run:</p>
+<pre><code># bash
+conda install r-base
+</code></pre>
+<p>If you already have native R installed, it's also possible to manually initialize R for rpy2. 
+See <a href="https://rpy2.github.io/doc/latest/html/overview.html#install-installation">here</a> for more details.</p>
 <h3 id="manual-dependency-installation">Manual dependency installation</h3>
-<p>(Currently) to install the development version of the package, a pre-installed PyTorch and PyG libraries are needed. </p>
-<h4 id="1-using-conda">1: Using Conda</h4>
+<p>(Currently) to install the development version of the package, a pre-installed PyTorch and PyG libraries are needed.
+We provide options to install PyG libraries using conda and pip.</p>
+<h4 id="option-1-using-conda">Option 1: Using Conda</h4>
 <p>For conda, installation in the following order is recommended. It may take around 10 minutes for conda to solve the environment for pytorch-sparse.
 The following chunk has been tested in a python 3.10 environment.</p>
 <pre><code>#bash
@@ -541,7 +545,7 @@ conda install pytorch torchvision -c pytorch
 conda install pyg -c pyg        
 conda install pytorch-sparse -c pyg 
 </code></pre>
-<h4 id="2-using-pip">2: Using pip</h4>
+<h4 id="option-2-using-pip">Option 2: Using pip</h4>
 <p>For pip, installation in the following order is recommended to avoid any compilation issue. It may take around 15 minutes to finish the installation.
 The following chunk has been tested in a python 3.10 environment.</p>
 <pre><code># bash
