@@ -1,22 +1,32 @@
 ## Installation
 ### Create and enter virtual environment (recommended)
-1. If you haven't installed anaconda on your machine, refer to this [doc](https://docs.anaconda.com/anaconda/install/), follow the instruction, 
+Step 1: If you haven't installed anaconda on your machine, refer to this [doc](https://docs.anaconda.com/anaconda/install/), follow the instruction, 
 and install the right version.
-2. Create the conda virtual environment. Refer to this [doc](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html). Example:
+
+Step 2: Create the conda virtual environment. Refer to this [doc](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html). Example:
 ```
 # bash
 conda create -n [name of your environment] python=3.10
 ```    
-3. Enter the virtual environment by running:
-``` 
+Step 3: Enter the virtual environment by running:
+```
 # bash
 conda activate [name of your environment]
 ```
+Step 4: In the current version of geospaNN, to use the R-package [BRISC](https://github.com/ArkajyotiSaha/BRISC) 
+for spatial parameter estimation (through rpy2), we need R installed in the environment. In order to install R, simply run:
+```
+# bash
+conda install r-base
+```
+If you already have native R installed, it's also possible to manually initialize R for rpy2. 
+See [here](https://rpy2.github.io/doc/latest/html/overview.html#install-installation) for more details.
 
 ### Manual dependency installation
-(Currently) to install the development version of the package, a pre-installed PyTorch and PyG libraries are needed. 
+(Currently) to install the development version of the package, a pre-installed PyTorch and PyG libraries are needed.
+We provide options to install PyG libraries using conda and pip.
 
-#### 1: Using Conda
+#### Option 1: Using Conda
 For conda, installation in the following order is recommended. It may take around 10 minutes for conda to solve the environment for pytorch-sparse.
 The following chunk has been tested in a python 3.10 environment.
 ```
@@ -26,7 +36,7 @@ conda install pyg -c pyg
 conda install pytorch-sparse -c pyg 
 ```
 
-#### 2: Using pip
+#### Option 2: Using pip
 For pip, installation in the following order is recommended to avoid any compilation issue. It may take around 15 minutes to finish the installation.
 The following chunk has been tested in a python 3.10 environment.
 ```
