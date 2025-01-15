@@ -416,13 +416,18 @@
 <h2 id="running-examples">Running examples</h2>
 <h3 id="notes">Notes</h3>
 <p>Python packages time, pandas, seaborn, geopandas, and matplotlib are required to run the following experiments.</p>
-<ol>
-<li><a href="../Example_simulation/">A simulation experiment with a common spatial setting is shown here.</a></li>
-<li>For the linear regression case, <a href="../Example_realdata/">a performance comparison with the R package BRISC is shown here.</a></li>
-<li><a href="../Example_realdata/">A real data experiment is shown here.</a></li>
-</ol>
+<ul>
+<li>A simple pipeline illsutrating the basic features of the package is available <a href="../Example_utils/Example_utils/">here</a>.</li>
+<li>Several simulation examples are available, to illustrate the usage of geospaNN for different statistical tasks:<ul>
+<li><a href="../Example_addcovariates/Example_addcovariates/">Choice of neural network architectures.</a></li>
+<li><a href="../Example_addcovariates/Example_addcovariates/">Compare with the add-to-spatial-feature approaches.</a></li>
+<li><a href="../Example_GAM/Example_GAM/">Compare with GAM.</a></li>
+</ul>
+</li>
+<li>A real data experiment is shown <a href="../Example_realdata/">here</a>.</li>
+</ul>
 <p>In the real data experiment, the PM2.5 data is collected from the <a href="https://www.epa.gov/outdoor-air-quality-data/download-daily-data">U.S. Environmental Protection Agency</a> datasets for each state are collected and bound together to obtain 'pm25_2022.csv'. daily PM2.5 files are subsets of 'pm25_2022.csv' produced by 'realdata_preprocess.py'. One can skip the preprocessing and use the daily files directory.</p>
-<p>The meteorological data is collected from the <a href="https://psl.noaa.gov/data/gridded/data.narr.html">National Centers for Environmental Prediction’s (NCEP) North American Regional Reanalysis (NARR) product</a>. The '.nc' (netCDF) files should be downloaded from the website and saved in the root directory to run 'realdata_preprocess.py'. Otherwise, one may skip the preprocessing and use covariate files directly.</p>
+<p>The meteorological data is collected from the <a href="https://psl.noaa.gov/data/gridded/data.narr.html">National Centers for Environmental Prediction's (NCEP) North American Regional Reanalysis (NARR) product</a>. The '.nc' (netCDF) files should be downloaded from the website and saved in the root directory to run 'realdata_preprocess.py'. Otherwise, one may skip the preprocessing and use covariate files directly.</p>
 
 
 
