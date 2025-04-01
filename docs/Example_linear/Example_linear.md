@@ -154,12 +154,12 @@ plt.savefig(path + 'Estimation_linear.png')
 
 
 ```python
-[test_predict, test_CI_U, test_CI_L] = model_linear.predict(data_train, data_test, CI = True)
+[test_predict, test_PI_U, test_PI_L] = model_linear.predict(data_train, data_test, PI = True)
 x_np = data_test.x.detach().numpy().reshape(-1)
 x_smooth = np.linspace(x_np.min(), x_np.max(), 200)  # Create finer x-points
 degree = 4
-U_fit = np.polyfit(x_np, test_CI_U, degree)
-L_fit = np.polyfit(x_np, test_CI_L, degree)
+U_fit = np.polyfit(x_np, test_PI_U, degree)
+L_fit = np.polyfit(x_np, test_PI_L, degree)
 Pred_fit = np.polyfit(x_np, test_predict, degree)
 
 # Evaluate the polynomial on a smooth grid

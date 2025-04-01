@@ -299,12 +299,12 @@ plt.savefig(path + 'Estimation.png')
 
 
 ```python
-[test_predict, test_CI_U, test_CI_L] = model.predict(data_train, data_test, CI = True)
+[test_predict, test_PI_U, test_PI_L] = model.predict(data_train, data_test, PI = True)
 x_np = data_test.x.detach().numpy().reshape(-1)
 x_smooth = np.linspace(x_np.min(), x_np.max(), 200)  # Create finer x-points
 degree = 4
-U_fit = np.polyfit(x_np, test_CI_U, degree)
-L_fit = np.polyfit(x_np, test_CI_L, degree)
+U_fit = np.polyfit(x_np, test_PI_U, degree)
+L_fit = np.polyfit(x_np, test_PI_L, degree)
 Pred_fit = np.polyfit(x_np, test_predict, degree)
 
 # Evaluate the polynomial on a smooth grid
@@ -316,14 +316,14 @@ plt.clf()
 plt.scatter(data_test.x.detach().numpy(), data_test.y.detach().numpy(), s=1, label='data')
 plt.scatter(data_test.x.detach().numpy(), funXY(data_test.x.detach().numpy()), s=1, label='f(x)')
 plt.scatter(data_test.x.detach().numpy(), test_predict.detach().numpy(), s=1, label='NNGLS prediction')
-#plt.plot(x_smooth, y_smooth_U, linestyle='--', label='NNGLS CI_U', color = 'red', alpha = 0.5)
-#plt.plot(x_smooth, y_smooth_L, linestyle='--', label='NNGLS CI_L', color = 'red', alpha = 0.5)
+#plt.plot(x_smooth, y_smooth_U, linestyle='--', label='NNGLS PI_U', color = 'red', alpha = 0.5)
+#plt.plot(x_smooth, y_smooth_L, linestyle='--', label='NNGLS PI_L', color = 'red', alpha = 0.5)
 plt.xlabel("X", fontsize=15)
 plt.ylabel("Y", fontsize=15)
 lgnd = plt.legend()
 for handle in lgnd.legend_handles[:3]:
     handle.set_sizes([10.0])
-plt.savefig(path + "Prediction_no_CI.png")
+plt.savefig(path + "Prediction_no_PI.png")
 ```
 
 
@@ -338,14 +338,14 @@ plt.clf()
 plt.scatter(data_test.x.detach().numpy(), data_test.y.detach().numpy(), s=1, label='data')
 plt.scatter(data_test.x.detach().numpy(), funXY(data_test.x.detach().numpy()), s=1, label='f(x)')
 plt.scatter(x_smooth, y_smooth, s=1, label='NNGLS prediction')
-plt.plot(x_smooth, y_smooth_U, linestyle='--', label='NNGLS CI_U', color = 'red', alpha = 0.5)
-plt.plot(x_smooth, y_smooth_L, linestyle='--', label='NNGLS CI_L', color = 'red', alpha = 0.5)
+plt.plot(x_smooth, y_smooth_U, linestyle='--', label='NNGLS PI_U', color = 'red', alpha = 0.5)
+plt.plot(x_smooth, y_smooth_L, linestyle='--', label='NNGLS PI_L', color = 'red', alpha = 0.5)
 plt.xlabel("X", fontsize=15)
 plt.ylabel("Y", fontsize=15)
 lgnd = plt.legend()
 for handle in lgnd.legend_handles[:3]:
     handle.set_sizes([10.0])
-plt.savefig(path + "Prediction_smoothed_CI.png")
+plt.savefig(path + "Prediction_smoothed_PI.png")
 ```
 
 
@@ -359,8 +359,8 @@ plt.savefig(path + "Prediction_smoothed_CI.png")
 x_np = data_test.y.detach().numpy().reshape(-1)
 degree = 4
 x_smooth = np.linspace(x_np.min(), x_np.max(), 200)  # Create finer x-points
-U_fit = np.polyfit(x_np, test_CI_U, degree)
-L_fit = np.polyfit(x_np, test_CI_L, degree)
+U_fit = np.polyfit(x_np, test_PI_U, degree)
+L_fit = np.polyfit(x_np, test_PI_L, degree)
 # Evaluate the polynomial on a smooth grid
 y_smooth_U = np.polyval(U_fit, x_smooth)
 y_smooth_L = np.polyval(L_fit, x_smooth)
@@ -368,14 +368,14 @@ y_smooth_L = np.polyval(L_fit, x_smooth)
 plt.clf()
 plt.scatter(data_test.y.detach().numpy(), data_test.y.detach().numpy(), s=1, label='data')
 plt.scatter(data_test.y.detach().numpy(), test_predict.detach().numpy(), s=1, label='NNGLS prediction')
-plt.plot(x_smooth, y_smooth_U, linestyle='--', label='CI Upper', color = 'red', alpha = 0.5)
-plt.plot(x_smooth, y_smooth_L, linestyle='--', label='CI Lower', color = 'red', alpha = 0.5)
+plt.plot(x_smooth, y_smooth_U, linestyle='--', label='PI Upper', color = 'red', alpha = 0.5)
+plt.plot(x_smooth, y_smooth_L, linestyle='--', label='PI Lower', color = 'red', alpha = 0.5)
 plt.xlabel("Prediction", fontsize=15)
 plt.ylabel("Truth", fontsize=15)
 lgnd = plt.legend()
 for handle in lgnd.legend_handles[:2]:
     handle.set_sizes([10.0])
-plt.savefig(path + "Prediction_vs_no_CI.png")
+plt.savefig(path + "Prediction_vs_no_PI.png")
 ```
 
 
