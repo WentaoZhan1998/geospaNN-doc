@@ -6,8 +6,10 @@ Python packages time, pandas, seaborn, geopandas, and matplotlib are required to
 
 -   A simple pipeline illsutrating the basic features of the package is available [here](Example_utils/Example_utils.md).
 -   Several simulation examples are available, to illustrate the usage of geospaNN for different statistical tasks:
-    -   [Choice of neural network architectures.](Example_addcovariates/Example_addcovariates.md)
-    -   [Compare with the add-to-spatial-feature approaches.](Example_addcovariates/Example_addcovariates.md)
+    -   [Choice of neural network architectures.](Example_architecture/Example_architecture.md)
+    -   [Application on spatial linear mixed model (SPLMM).](Example_linear/Example_linear.md)
+    -   [Compare with the add-to-spatial-feature approaches.](Example_addcovariates_new/Example_addcovariates_new.md)
+    -   [Application on time series data.](Example_time/Example_time.md)
     -   [Compare with GAM.](Example_GAM/Example_GAM.md)
 -   A real data experiment is shown [here](Example_realdata.md).
 
