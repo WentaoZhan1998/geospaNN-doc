@@ -395,6 +395,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#geospaNN.model.linear_gls" class="md-nav__link">
+    <span class="md-ellipsis">
+      linear_gls
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -537,8 +546,7 @@ cov(N(i), N(i)).
 
               <details class="quote">
                 <summary>Source code in <code>geospaNN/model.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
-<span class="normal">43</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
 <span class="normal">46</span>
@@ -576,7 +584,8 @@ cov(N(i), N(i)).
 <span class="normal">78</span>
 <span class="normal">79</span>
 <span class="normal">80</span>
-<span class="normal">81</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">InverseCovMat</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="normal">81</span>
+<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">InverseCovMat</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A feed-forward layer that returns inverses of nearest neighbor covariance matrices. For neighbor size k, and batch size b,</span>
 <span class="sd">    the feed-forward layer will return a bxkxk tensor, where the ith kxk matrix is the inverse of neighbor covariance matrix</span>
@@ -731,8 +740,7 @@ message-passing layer will return a bxp tensor, where the ith row is the covaria
 
               <details class="quote">
                 <summary>Source code in <code>geospaNN/model.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
-<span class="normal"> 9</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
@@ -763,7 +771,8 @@ message-passing layer will return a bxp tensor, where the ith row is the covaria
 <span class="normal">37</span>
 <span class="normal">38</span>
 <span class="normal">39</span>
-<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NeighborCovVec</span><span class="p">(</span><span class="n">MessagePassing</span><span class="p">):</span>
+<span class="normal">40</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NeighborCovVec</span><span class="p">(</span><span class="n">MessagePassing</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A message-passing layer that returns covariance vectors for a single batch. For neighbor size k, and batch size b, the</span>
 <span class="sd">    message-passing layer will return a bxp tensor, where the ith row is the covariance vector cov(i, N(i)).</span>
@@ -901,8 +910,7 @@ output from the size-p nearest neighborhood of location i.
 
               <details class="quote">
                 <summary>Source code in <code>geospaNN/model.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">128</span>
-<span class="normal">129</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">129</span>
 <span class="normal">130</span>
 <span class="normal">131</span>
 <span class="normal">132</span>
@@ -931,7 +939,8 @@ output from the size-p nearest neighborhood of location i.
 <span class="normal">155</span>
 <span class="normal">156</span>
 <span class="normal">157</span>
-<span class="normal">158</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NeighborInfo</span><span class="p">(</span><span class="n">MessagePassing</span><span class="p">):</span>
+<span class="normal">158</span>
+<span class="normal">159</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NeighborInfo</span><span class="p">(</span><span class="n">MessagePassing</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A message-passing layer that collect the output of the nearest neighborhood. For neighbor size k, batch size b,</span>
 <span class="sd">    the message-passing layer will return a bxk tensor, where the ith row is the</span>
@@ -1078,8 +1087,7 @@ concatenation of k d-dimensional coordinates representing the k-nearest neighbor
 
               <details class="quote">
                 <summary>Source code in <code>geospaNN/model.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 84</span>
-<span class="normal"> 85</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 85</span>
 <span class="normal"> 86</span>
 <span class="normal"> 87</span>
 <span class="normal"> 88</span>
@@ -1119,7 +1127,8 @@ concatenation of k d-dimensional coordinates representing the k-nearest neighbor
 <span class="normal">122</span>
 <span class="normal">123</span>
 <span class="normal">124</span>
-<span class="normal">125</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NeighborPositions</span><span class="p">(</span><span class="n">MessagePassing</span><span class="p">):</span>
+<span class="normal">125</span>
+<span class="normal">126</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NeighborPositions</span><span class="p">(</span><span class="n">MessagePassing</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A message-passing layer that collect the coordinates of the nearest neighborhood. For neighbor size k, batch size b,</span>
 <span class="sd">    and coordinates&#39; dimension d, the message-passing layer will return a bx(k*d) tensor, where the ith row is the</span>
@@ -2237,6 +2246,181 @@ Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621
 
 </div>
 
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="geospaNN.model.linear_gls" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">linear_gls</span><span class="p">(</span><span class="n">data_train</span><span class="p">,</span> <span class="n">neighbor_size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Spatial linear mixed model for geospatial data</p>
+<p>Find the upper triangular matrix B and diagonal matrix F such that (I-B)'F^{-1}(I-B) appriximate the precision matrix
+(inverse of the covariance matrix). The level of approximation increase with the neighbor size. When using the full neighbor,
+the NNGP appriximation degrade to the Cholesky decomposition. (see https://arxiv.org/abs/2102.13299 for more details.)</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>data_train</code>
+            </td>
+            <td>
+                  <code><span title="torch_geometric.data.Data">Data</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <pre><code>Training data containing x, y and spatial coordinates, can be the output of split_data() or make_graph().
+</code></pre>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>neighbor_size</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[int]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <pre><code>Number of nearest neighbors used for NNGP approximation, default value is 20.
+</code></pre>
+              </div>
+            </td>
+            <td>
+                  <code>20</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>model</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="geospaNN.model.nngls" href="#geospaNN.model.nngls">nngls</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>nngls
+A model in the class of nngls, with additional attribute model.var containing the estimated
+variance of linear coefficients</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="see-also" open>
+  <summary>See Also</summary>
+  <p>Saha, Arkajyoti, and Abhirup Datta. "BRISC: bootstrap for rapid inference on spatial covariances."
+Stat 7.1 (2018): e184.</p>
+</details>
+            <details class="quote">
+              <summary>Source code in <code>geospaNN/model.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">linear_gls</span><span class="p">(</span><span class="n">data_train</span><span class="p">:</span> <span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">,</span>
+               <span class="n">neighbor_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+               <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nngls</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Spatial linear mixed model for geospatial data</span>
+
+<span class="sd">    Find the upper triangular matrix B and diagonal matrix F such that (I-B)&#39;F^{-1}(I-B) appriximate the precision matrix</span>
+<span class="sd">    (inverse of the covariance matrix). The level of approximation increase with the neighbor size. When using the full neighbor,</span>
+<span class="sd">    the NNGP appriximation degrade to the Cholesky decomposition. (see https://arxiv.org/abs/2102.13299 for more details.)</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        data_train:</span>
+<span class="sd">                Training data containing x, y and spatial coordinates, can be the output of split_data() or make_graph().</span>
+<span class="sd">        neighbor_size:</span>
+<span class="sd">                Number of nearest neighbors used for NNGP approximation, default value is 20.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        model: nngls</span>
+<span class="sd">            A model in the class of nngls, with additional attribute model.var containing the estimated</span>
+<span class="sd">            variance of linear coefficients</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        Saha, Arkajyoti, and Abhirup Datta. &quot;BRISC: bootstrap for rapid inference on spatial covariances.&quot;</span>
+<span class="sd">        Stat 7.1 (2018): e184.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">data_train</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="n">data_train</span><span class="o">.</span><span class="n">x</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">beta</span><span class="p">,</span> <span class="n">theta_hat_BRISC</span> <span class="o">=</span> <span class="n">BRISC_estimation</span><span class="p">(</span><span class="n">data_train</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+                                             <span class="n">x</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+                                             <span class="n">data_train</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+    <span class="k">def</span> <span class="nf">mlp_BRISC</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">beta</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">*</span> <span class="n">X</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">nngls</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">data_train</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">neighbor_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">coord_dimensions</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">mlp</span><span class="o">=</span><span class="n">mlp_BRISC</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">theta_hat_BRISC</span><span class="p">))</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">make_cov</span><span class="p">(</span><span class="n">data_train</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="n">theta_hat_BRISC</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="n">neighbor_size</span> <span class="o">=</span> <span class="n">neighbor_size</span><span class="p">)</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">cov</span><span class="o">.</span><span class="n">decorrelate</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
 
 
 
