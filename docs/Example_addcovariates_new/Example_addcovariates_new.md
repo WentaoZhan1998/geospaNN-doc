@@ -318,59 +318,6 @@ predict_nn_add = mlp_nn_add(data_add_test.x).detach().numpy().reshape(-1)
 
 
 ```python
-coord_np = coord.detach().numpy()
-num_basis = [2 ** 2, 4 ** 2, 6 ** 2]
-knots_1d = [np.linspace(0, 1, int(np.sqrt(i))) for i in num_basis]
-##Wendland kernel
-K = 0
-phi_temp = np.zeros((n, sum(num_basis)))
-for res in range(len(num_basis)):
-    theta_temp = 1 / np.sqrt(num_basis[res]) * 2.5
-    knots_s1, knots_s2 = np.meshgrid(knots_1d[res], knots_1d[res])
-    knots = np.column_stack((knots_s1.flatten(), knots_s2.flatten()))
-    for i in range(num_basis[res]):
-        d = np.linalg.norm(coord_np / b - knots[i, :], axis=1) / theta_temp
-        for j in range(len(d)):
-            if d[j] >= 0 and d[j] <= 1:
-                phi_temp[j, i + K] = (1 - d[j]) ** 6 * (35 * d[j] ** 2 + 18 * d[j] + 3) / 3
-            else:
-                phi_temp[j, i + K] = 0
-    K = K + num_basis[res]
-
-torch.manual_seed(2024)
-np.random.seed(0)
-data_DK_train, data_DK_val, data_DK_test = geospaNN.split_data(torch.concat([X, torch.from_numpy(phi_temp)], axis = 1).float(), 
-                                                               Y, coord, neighbor_size=nn, test_proportion=0.2)
-```
-
-
-```python
-def coord_basis(coord,
-                num_basis = [2 ** 2, 4 ** 2, 6 ** 2]):
-    coord_np = coord.detach().numpy()
-    coord_min = coord_np.min(axis=0)  # Minimum of each column
-    coord_max = coord_np.max(axis=0)  # Maximum of each column
-
-    coord_np = (coord_np - coord_min) / (coord_max - coord_min)
-    knots_1d = [np.linspace(0, 1, int(np.sqrt(i))) for i in num_basis]
-    ##Wendland kernel
-    K = 0
-    phi_temp = np.zeros((coord_np.shape[0], sum(num_basis)))
-    for res in range(len(num_basis)):
-        theta_temp = 1 / np.sqrt(num_basis[res]) * 2.5
-        knots_s1, knots_s2 = np.meshgrid(knots_1d[res], knots_1d[res])
-        knots = np.column_stack((knots_s1.flatten(), knots_s2.flatten()))
-        for i in range(num_basis[res]):
-            d = np.linalg.norm(coord_np - knots[i, :], axis=1) / theta_temp
-            for j in range(len(d)):
-                if d[j] >= 0 and d[j] <= 1:
-                    phi_temp[j, i + K] = (1 - d[j]) ** 6 * (35 * d[j] ** 2 + 18 * d[j] + 3) / 3
-                else:
-                    phi_temp[j, i + K] = 0
-        K = K + num_basis[res]
-
-    return K, torch.from_numpy(phi_temp)
-        
 K, phi_temp = geospaNN.coord_basis(coord)
 torch.manual_seed(2024)
 np.random.seed(0)
@@ -410,7 +357,7 @@ plt.show()
 
 
     
-![png](output_11_0.png)
+![png](output_10_0.png)
     
 
 
@@ -450,7 +397,7 @@ print(f"RMSE nn-spline: {torch.mean((data_test.y - predict_DK)**2):.2f}")
 
 
     
-![png](output_12_1.png)
+![png](output_11_1.png)
     
 
 
@@ -481,7 +428,7 @@ for i, label in enumerate(labels):
 
 
     
-![png](output_13_0.png)
+![png](output_12_0.png)
     
 
 
@@ -525,7 +472,7 @@ plt.savefig(path + 'Knots_2x2.png')
 
 
     
-![png](output_14_0.png)
+![png](output_13_0.png)
     
 
 
@@ -571,6 +518,6 @@ plt.savefig(path + 'Knots_4x4.png')
 
 
     
-![png](output_15_0.png)
+![png](output_14_0.png)
     
 
