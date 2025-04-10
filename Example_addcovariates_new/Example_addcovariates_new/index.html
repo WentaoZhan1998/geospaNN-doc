@@ -1,0 +1,817 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>Example addcovariates new - GeospaNN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="GeospaNN" class="md-header__button md-logo" aria-label="GeospaNN" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GeospaNN
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Example addcovariates new
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="GeospaNN" class="md-nav__button md-logo" aria-label="GeospaNN" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    GeospaNN
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to start
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Example addcovariates new</h1>
+
+<pre><code class="language-python">import torch
+import geospaNN
+import numpy as np
+import time
+import pandas as pd
+import seaborn as sns
+import random
+
+import matplotlib
+import matplotlib.pyplot as plt
+
+path = '../data/Output/'
+</code></pre>
+<pre><code>R[write to console]: Loading required package: BRISC
+
+R[write to console]: Loading required package: RANN
+
+R[write to console]: Loading required package: parallel
+
+R[write to console]: Loading required package: rdist
+
+R[write to console]: Loading required package: matrixStats
+
+R[write to console]: Loading required package: pbapply
+
+R[write to console]: The ordering of inputs x (covariates) and y (response) in BRISC_estimation has been changed BRISC 1.0.0 onwards.
+  Please check the new documentation with ?BRISC_estimation.
+
+
+
+R package: BRISC installed
+
+
+/Users/zhanwentao/opt/anaconda3/envs/NN/lib/python3.10/site-packages/pandas/core/arrays/masked.py:60: UserWarning: Pandas requires version '1.3.6' or newer of 'bottleneck' (version '1.3.5' currently installed).
+  from pandas.core import (
+</code></pre>
+<pre><code class="language-python">def f5(X): return (10 * np.sin(np.pi * X[:, 0] * X[:, 1]) + 20 * (X[:, 2] - 0.5) ** 2 + 10 * X[:, 3] + 5 * X[:, 4]) / 6
+def f1(X): return 10 * np.sin(2 * np.pi * X)
+
+sigma = 5
+phi = 0.3
+tau = 0.01
+theta = torch.tensor([sigma, phi / np.sqrt(2), tau])
+
+p = 1;
+funXY = f1
+
+n = 1000
+b = 10
+nn = 20
+batch_size = 50
+</code></pre>
+<pre><code class="language-python">torch.manual_seed(2025)
+X, Y, coord, cov, corerr = geospaNN.Simulation(n, p, nn, funXY, theta, range=[0, b])
+
+random.seed(2024)
+X, Y, coord, _ = geospaNN.spatial_order(X, Y, coord, method='max-min')
+data = geospaNN.make_graph(X, Y, coord, nn)
+
+torch.manual_seed(2024)
+np.random.seed(0)
+data_train, data_val, data_test = geospaNN.split_data(X, Y, coord, neighbor_size=nn,
+                                                      test_proportion=0.2)
+</code></pre>
+<pre><code class="language-python">torch.manual_seed(2024)
+mlp_nn = torch.nn.Sequential(
+    torch.nn.Linear(p, 50),
+    torch.nn.ReLU(),
+    torch.nn.Linear(50, 20),
+    torch.nn.ReLU(),
+    torch.nn.Linear(20, 1)
+)
+nn_model = geospaNN.nn_train(mlp_nn, lr=0.01, min_delta=0.001)
+training_log = nn_model.train(data_train, data_val, data_test, seed = 2024)
+theta0 = geospaNN.theta_update(mlp_nn(data_train.x).squeeze() - data_train.y,
+                               data_train.pos, neighbor_size=20)
+model = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nn, theta=torch.tensor(theta0))
+predict_nn = model.predict(data_train, data_test)
+</code></pre>
+<pre><code>Epoch 00061: reducing learning rate of group 0 to 5.0000e-03.
+Epoch 00068: reducing learning rate of group 0 to 2.5000e-03.
+INFO: Early stopping
+End at epoch71
+---------------------------------------- 
+    Ordering Coordinates 
+----------------------------------------
+    Model description
+----------------------------------------
+BRISC model fit with 600 observations.
+
+Number of covariates 1 (including intercept if specified).
+
+Using the exponential spatial correlation model.
+
+Using 15 nearest neighbors.
+
+
+
+Source not compiled with OpenMP support.
+----------------------------------------
+    Building neighbor index
+----------------------------------------
+    Performing optimization
+----------------------------------------
+    Processing optimizers
+----------------------------------------
+Theta estimated as
+[3.8977135  0.48003391 0.01919864]
+</code></pre>
+<pre><code class="language-python">torch.manual_seed(2024)
+mlp_nngls = torch.nn.Sequential(
+    torch.nn.Linear(p, 50),
+    torch.nn.ReLU(),
+    torch.nn.Linear(50, 20),
+    torch.nn.ReLU(),
+    torch.nn.Linear(20, 1)
+)
+model_nngls = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nngls, theta=torch.tensor(theta0))
+nngls_model = geospaNN.nngls_train(model_nngls, lr=0.1, min_delta=0.001)
+training_log = nngls_model.train(data_train, data_val, data_test,
+                                 Update_init=20, Update_step=10, seed = 2024)
+theta_hat = geospaNN.theta_update(mlp_nngls(data_train.x).squeeze() - data_train.y,
+                                  data_train.pos, neighbor_size = 20)
+model = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nngls, theta=torch.tensor(theta_hat))
+predict_nngls = model.predict(data_train, data_test)
+</code></pre>
+<pre><code>---------------------------------------- 
+    Ordering Coordinates 
+----------------------------------------
+    Model description
+----------------------------------------
+BRISC model fit with 600 observations.
+
+Number of covariates 1 (including intercept if specified).
+
+Using the exponential spatial correlation model.
+
+Using 15 nearest neighbors.
+
+
+
+Source not compiled with OpenMP support.
+----------------------------------------
+    Building neighbor index
+----------------------------------------
+    Performing optimization
+----------------------------------------
+    Processing optimizers
+----------------------------------------
+Theta estimated as
+[3.74956068 0.58783613 0.05867977]
+to
+[3.74956068 0.58783613 0.05867977]
+Epoch 00023: reducing learning rate of group 0 to 5.0000e-02.
+---------------------------------------- 
+    Ordering Coordinates 
+----------------------------------------
+    Model description
+----------------------------------------
+BRISC model fit with 600 observations.
+
+Number of covariates 1 (including intercept if specified).
+
+Using the exponential spatial correlation model.
+
+Using 15 nearest neighbors.
+
+
+
+Source not compiled with OpenMP support.
+----------------------------------------
+    Building neighbor index
+----------------------------------------
+    Performing optimization
+----------------------------------------
+    Processing optimizers
+----------------------------------------
+Theta estimated as
+[3.88848444 0.53997914 0.04564809]
+to
+[3.88848444 0.53997914 0.04564809]
+---------------------------------------- 
+    Ordering Coordinates 
+----------------------------------------
+    Model description
+----------------------------------------
+BRISC model fit with 600 observations.
+
+Number of covariates 1 (including intercept if specified).
+
+Using the exponential spatial correlation model.
+
+Using 15 nearest neighbors.
+
+
+
+Source not compiled with OpenMP support.
+----------------------------------------
+    Building neighbor index
+----------------------------------------
+    Performing optimization
+----------------------------------------
+    Processing optimizers
+----------------------------------------
+Theta estimated as
+[3.85068344 0.56145709 0.04738584]
+to
+[3.85068344 0.56145709 0.04738584]
+Epoch 00043: reducing learning rate of group 0 to 2.5000e-02.
+---------------------------------------- 
+    Ordering Coordinates 
+----------------------------------------
+    Model description
+----------------------------------------
+BRISC model fit with 600 observations.
+
+Number of covariates 1 (including intercept if specified).
+
+Using the exponential spatial correlation model.
+
+Using 15 nearest neighbors.
+
+
+
+Source not compiled with OpenMP support.
+----------------------------------------
+    Building neighbor index
+----------------------------------------
+    Performing optimization
+----------------------------------------
+    Processing optimizers
+----------------------------------------
+Theta estimated as
+[3.88615128 0.50797222 0.03723211]
+to
+[3.88615128 0.50797222 0.03723211]
+Epoch 00053: reducing learning rate of group 0 to 1.2500e-02.
+INFO: Early stopping
+End at epoch56
+---------------------------------------- 
+    Ordering Coordinates 
+----------------------------------------
+    Model description
+----------------------------------------
+BRISC model fit with 600 observations.
+
+Number of covariates 1 (including intercept if specified).
+
+Using the exponential spatial correlation model.
+
+Using 15 nearest neighbors.
+
+
+
+Source not compiled with OpenMP support.
+----------------------------------------
+    Building neighbor index
+----------------------------------------
+    Performing optimization
+----------------------------------------
+    Processing optimizers
+----------------------------------------
+Theta estimated as
+[4.26710204 0.41945289 0.0132123 ]
+</code></pre>
+<pre><code class="language-python">data_add_train = geospaNN.make_graph(torch.concat([data_train.x, data_train.pos], axis = 1), 
+                                     data_train.y, data_train.pos, nn)
+data_add_val = geospaNN.make_graph(torch.concat([data_val.x, data_val.pos], axis = 1), 
+                                   data_val.y, data_val.pos, nn)
+data_add_test = geospaNN.make_graph(torch.concat([data_test.x, data_test.pos], axis = 1), 
+                                    data_test.y, data_test.pos, nn)
+</code></pre>
+<pre><code class="language-python">torch.manual_seed(2024)
+np.random.seed(0)
+data_add_train, data_add_val, data_add_test = geospaNN.split_data(torch.concat([X, coord], axis = 1), Y, coord, neighbor_size=nn,
+                                                                  test_proportion=0.2)
+</code></pre>
+<pre><code class="language-python">torch.manual_seed(2025)
+mlp_nn_add = torch.nn.Sequential(
+    torch.nn.Linear(p+2, 50),
+    torch.nn.ReLU(),
+    torch.nn.Linear(50, 20),
+    torch.nn.ReLU(),
+    torch.nn.Linear(20, 1)
+)
+nn_add_model = geospaNN.nn_train(mlp_nn_add, lr=0.01, min_delta=0.001)
+training_log = nn_add_model.train(data_add_train, data_add_val, data_add_test, seed = 2024)
+predict_nn_add = mlp_nn_add(data_add_test.x).detach().numpy().reshape(-1)
+</code></pre>
+<pre><code>Epoch 00087: reducing learning rate of group 0 to 5.0000e-03.
+</code></pre>
+<pre><code class="language-python">K, phi_temp = geospaNN.coord_basis(coord)
+torch.manual_seed(2024)
+np.random.seed(0)
+data_DK_train, data_DK_val, data_DK_test = geospaNN.split_data(torch.concat([X, phi_temp], axis = 1).float(), 
+                                                               Y, coord, neighbor_size=nn, test_proportion=0.2)
+</code></pre>
+<pre><code class="language-python">torch.manual_seed(2024)
+mlp_nn_DK = torch.nn.Sequential(
+    torch.nn.Linear(p+K, 50),
+    torch.nn.ReLU(), 
+    torch.nn.Linear(50, 20), 
+    torch.nn.ReLU(), 
+    torch.nn.Linear(20, 1)) 
+nn_DK_model = geospaNN.nn_train(mlp_nn_DK, lr=0.01, min_delta=0.001) 
+training_log = nn_DK_model.train(data_DK_train, data_DK_val, data_DK_test, seed = 2024) 
+predict_DK = mlp_nn_DK(data_DK_test.x).detach().numpy().reshape(-1)
+</code></pre>
+<pre><code>Epoch 00058: reducing learning rate of group 0 to 5.0000e-03.
+INFO: Early stopping
+End at epoch61
+</code></pre>
+<pre><code class="language-python">plt.clf()
+plt.scatter(X.detach().numpy(), Y.detach().numpy(), s=1, label='data')
+plt.scatter(X.detach().numpy(), funXY(X.detach().numpy()), s=1, label='f(x)')
+plt.scatter(X.detach().numpy(), mlp_nn(X).detach().numpy(), s=1, label='NN')
+plt.scatter(X.detach().numpy(), mlp_nngls(X).detach().numpy(), s=1, label='NNGLS')
+plt.legend()
+plt.show()
+</code></pre>
+<p><img alt="png" src="../output_10_0.png" /></p>
+<pre><code class="language-python">estimate_nn = mlp_nn(data_test.x).detach().numpy().reshape(-1)
+plt.clf()
+plt.scatter(data_test.y.detach().numpy(), data_test.y.detach().numpy(), s=1, alpha = 0.5, label='Truth')
+plt.scatter(data_test.y.detach().numpy(), predict_nngls, s=1, alpha = 0.5, label='NNGLS')
+plt.scatter(data_test.y.detach().numpy(), estimate_nn, s=1, alpha = 0.5, label='NN estimate')
+plt.scatter(data_test.y.detach().numpy(), predict_nn, s=1, alpha = 0.5, label='NN + kriging')
+plt.scatter(data_test.y.detach().numpy(), predict_nn_add, s=1, alpha = 0.5, label='NN-add-coords')
+plt.scatter(data_test.y.detach().numpy(), predict_DK, s=1, alpha = 0.5, label='NN-spline')
+#plt.scatter(data_test.y.detach().numpy(), predict3, s=1, alpha = 0.5, label='NNGLS nugget 97%')
+lgnd = plt.legend(fontsize=10)
+plt.xlabel('Observed y', fontsize=10)
+plt.ylabel('Predicted y from x and locations', fontsize=10)
+plt.title('Prediction')
+
+for handle in lgnd.legend_handles:
+    handle.set_sizes([10.0])
+#plt.savefig(path + 'Prediction_block5.png')
+
+print(f&quot;RMSE nn-estimate:  {torch.mean((data_test.y - estimate_nn)**2):.2f}&quot;)
+print(f&quot;RMSE nngls:  {torch.mean((data_test.y - predict_nngls)**2):.2f}&quot;)
+print(f&quot;RMSE nn+kriging: {torch.mean((data_test.y - predict_nn)**2):.2f}&quot;)
+print(f&quot;RMSE nn-add-coordinates: {torch.mean((data_test.y - predict_nn_add)**2):.2f}&quot;)
+print(f&quot;RMSE nn-spline: {torch.mean((data_test.y - predict_DK)**2):.2f}&quot;)
+</code></pre>
+<pre><code>RMSE nn-estimate:  2.98
+RMSE nngls:  0.45
+RMSE nn+kriging: 0.52
+RMSE nn-add-coordinates: 2.84
+RMSE nn-spline: 1.70
+</code></pre>
+<p><img alt="png" src="../output_11_1.png" /></p>
+<pre><code class="language-python">colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+labels = [&quot;Truth&quot;, &quot;NNGLS&quot;, &quot;NN estimate&quot;, &quot;NN + kriging&quot;, &quot;NN-add-coords&quot;, &quot;NN-spline&quot;]
+data = [data_test.y.detach().numpy(), predict_nngls, estimate_nn, predict_nn,  predict_nn_add, predict_DK]
+
+for i, label in enumerate(labels):
+    if i &lt;= 1:
+        continue
+    plt.clf()
+    plt.scatter(data_test.y.detach().numpy(), data_test.y.detach().numpy(), s=1.5, alpha = 0.8, label='Truth')
+    plt.scatter(data_test.y.detach().numpy(), predict_nngls, s=1.5, alpha = 0.8, label='NNGLS')
+    plt.scatter(data_test.y.detach().numpy(), data[i], s=1.5, alpha = 0.8, label=label, color = colors[i])
+    #plt.scatter(data_test.y.detach().numpy(), predict3, s=1, alpha = 0.5, label='NNGLS nugget 97%')
+    lgnd = plt.legend(fontsize=10)
+    plt.xlabel('Observed y', fontsize=10)
+    plt.ylabel('Predicted y from x and locations', fontsize=10)
+    plt.title('Prediction with ' + label)
+
+    for handle in lgnd.legend_handles:
+        handle.set_sizes([10.0])
+    #plt.show()
+    plt.savefig(path + 'Prediction_' + label + '.png')
+</code></pre>
+<p><img alt="png" src="../output_12_0.png" /></p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Define the Wendland C2 RBF function
+def wendland_c2(r):
+    return ((1 - r)**4 * (4 * r + 1)) * (r &lt; 1)
+
+# Define the grid for visualization
+x = np.linspace(0, 1, 100)
+y = np.linspace(0, 1, 100)
+X, Y = np.meshgrid(x, y)
+
+# Define the four knot positions (corners of unit square)
+knots = [(0, 0), (0, 1), (1, 0), (1, 1)]
+
+# Create figure with 2x2 subplots
+fig, axes = plt.subplots(2, 2, figsize=(8, 8))
+
+# Plot Wendland RBF centered at each knot
+for ax, (kx, ky) in zip(axes.flat, knots):
+    R = np.sqrt((X - kx)**2 + (Y - ky)**2)  # Compute radial distance
+    Z = wendland_c2(R)  # Apply Wendland function
+
+    c = ax.contourf(X, Y, Z, levels=30, cmap='viridis')
+    ax.scatter([kx], [ky], color='red', marker='o', s=100, label=&quot;Knot&quot;)
+    #ax.set_title(f&quot;Knot at ({kx}, {ky})&quot;)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    #ax.legend()
+
+fig.suptitle(&quot;Wendland RBF at 2x2 knots of a Unit Square&quot;, fontsize=14)
+plt.tight_layout()
+#plt.show()
+plt.savefig(path + 'Knots_2x2.png')
+</code></pre>
+<p><img alt="png" src="../output_13_0.png" /></p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Define the Wendland C2 RBF function
+def wendland_c2(r):
+    return ((1 - r)**4 * (4 * r + 1)) * (r &lt; 1)
+
+# Define the grid for visualization
+x = np.linspace(0, 1, 100)
+y = np.linspace(0, 1, 100)
+X, Y = np.meshgrid(x, y)
+
+# Define a 4x4 grid of knots within the unit square
+num_knots = 4
+knot_positions = np.linspace(0, 1, num_knots)
+knots = [(kx, ky) for kx in knot_positions for ky in knot_positions]
+
+# Create figure with 4x4 subplots
+fig, axes = plt.subplots(num_knots, num_knots, figsize=(10, 10))
+
+# Plot Wendland RBF centered at each knot
+for ax, (kx, ky) in zip(axes.flat, knots):
+    R = np.sqrt((X - kx)**2 + (Y - ky)**2)  # Compute radial distance
+    Z = wendland_c2(R)  # Apply Wendland function
+
+    c = ax.contourf(X, Y, Z, levels=30, cmap='viridis')
+    ax.scatter([kx], [ky], color='red', marker='o', s=50, label=&quot;Knot&quot;)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    #ax.set_title(f&quot;({kx:.2f}, {ky:.2f})&quot;, fontsize=8)
+    #ax.legend(loc=&quot;upper right&quot;, fontsize=6)
+
+fig.suptitle(&quot;Wendland RBFs at 4×4 Knots in Unit Square&quot;, fontsize=14)
+plt.tight_layout()
+#plt.show()
+plt.savefig(path + 'Knots_4x4.png')
+</code></pre>
+<p><img alt="png" src="../output_14_0.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

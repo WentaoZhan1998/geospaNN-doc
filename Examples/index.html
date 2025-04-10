@@ -419,12 +419,14 @@
 <ul>
 <li>A simple pipeline illsutrating the basic features of the package is available <a href="../Example_utils/Example_utils/">here</a>.</li>
 <li>Several simulation examples are available, to illustrate the usage of geospaNN for different statistical tasks:<ul>
-<li><a href="../Example_addcovariates/Example_addcovariates/">Choice of neural network architectures.</a></li>
-<li><a href="../Example_addcovariates/Example_addcovariates/">Compare with the add-to-spatial-feature approaches.</a></li>
+<li><a href="../Example_architecture/Example_architecture/">Choice of neural network architectures.</a></li>
+<li><a href="../Example_linear/Example_linear/">Application on spatial linear mixed model (SPLMM).</a></li>
+<li><a href="../Example_addcovariates_new/Example_addcovariates_new/">Compare with the add-to-spatial-feature approaches.</a></li>
+<li><a href="../Example_time/Example_time/">Application on time series data.</a></li>
 <li><a href="../Example_GAM/Example_GAM/">Compare with GAM.</a></li>
+<li>A real data experiment is shown <a href="../Example_realdata/">here</a>.</li>
 </ul>
 </li>
-<li>A real data experiment is shown <a href="../Example_realdata/">here</a>.</li>
 </ul>
 <p>In the real data experiment, the PM2.5 data is collected from the <a href="https://www.epa.gov/outdoor-air-quality-data/download-daily-data">U.S. Environmental Protection Agency</a> datasets for each state are collected and bound together to obtain 'pm25_2022.csv'. daily PM2.5 files are subsets of 'pm25_2022.csv' produced by 'realdata_preprocess.py'. One can skip the preprocessing and use the daily files directory.</p>
 <p>The meteorological data is collected from the <a href="https://psl.noaa.gov/data/gridded/data.narr.html">National Centers for Environmental Prediction's (NCEP) North American Regional Reanalysis (NARR) product</a>. The '.nc' (netCDF) files should be downloaded from the website and saved in the root directory to run 'realdata_preprocess.py'. Otherwise, one may skip the preprocessing and use covariate files directly.</p>
