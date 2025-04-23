@@ -48,9 +48,6 @@ def RMSE(x,y):
 
 
 ```python
-def f5(X): return (10 * np.sin(np.pi * X[:, 0] * X[:, 1]) + 20 * (X[:, 2] - 0.5) ** 2 + 10 * X[:, 3] + 5 * X[:, 4]) / 6
-
-
 def f1(X): return 10 * np.sin(2*np.pi * X)
 
 p = 1;
@@ -62,8 +59,8 @@ batch_size = 50
 
 sigma = 1
 phi = 0.3
-tau = 0.01
-theta = torch.tensor([sigma, phi / np.sqrt(2), tau])
+Lambda = 0.01
+theta = torch.tensor([sigma, phi / np.sqrt(2), Lambda])
 
 X, Y, coord, cov, corerr = geospaNN.Simulation(n, p, nn, funXY, theta, range=[0, 1])
 ```
@@ -91,21 +88,7 @@ data_train, data_val, data_test = geospaNN.split_data(X, Y, coord, neighbor_size
 
 
 ```python
-def linear_gls(data_train):
-    beta, theta_hat_BRISC = geospaNN.BRISC_estimation(data_train.y.detach().numpy(),
-                                                      torch.concat([torch.ones(data_train.x.shape[0], 1), data_train.x],
-                                                                   axis=1).detach().numpy(),
-                                                      data_train.pos.detach().numpy())
-    def mlp_BRISC(X):
-        return beta[0] + torch.Tensor(beta[1:]) * X
-
-    model = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_BRISC, theta=torch.tensor(theta_hat_BRISC))
-    return model
-```
-
-
-```python
-model_linear = linear_gls(data_train)
+model_linear = geospaNN.model.linear_gls(data_train)
 ```
 
     ---------------------------------------- 
@@ -139,11 +122,31 @@ estimate = model_linear.estimate(X)
 plt.clf()
 plt.scatter(X.detach().numpy(), Y.detach().numpy(), s=1, label='data')
 plt.scatter(X.detach().numpy(), funXY(X.detach().numpy()), s=1, label='f(x)')
-plt.scatter(X.detach().numpy(), estimate, s=1, label='BRISC')
+plt.scatter(X.detach().numpy(), estimate, s=1, label='Linear estimation')
 lgnd = plt.legend()
 for handle in lgnd.legend_handles:
     handle.set_sizes([10.0])
 plt.savefig(path + 'Estimation_linear.png')
+```
+
+
+    
+![png](output_6_0.png)
+    
+
+
+
+```python
+[CI_U, CI_L] = geospaNN.confidence_interval(model_linear, X, rep = 200, quantiles = [97.5, 2.5])
+plt.scatter(X.detach().numpy(), Y.detach().numpy(), s=1, label='data')
+plt.scatter(X.detach().numpy(), funXY(X.detach().numpy()), s=1, label='f(x)')
+plt.scatter(X.detach().numpy(), estimate, s=1, label='Linear estimation')
+plt.scatter(X.detach().numpy(), CI_U, s=1, label='CI_U')
+plt.scatter(X.detach().numpy(), CI_L, s=1, label='CI_L')
+lgnd = plt.legend()
+for handle in lgnd.legend_handles:
+    handle.set_sizes([10.0])
+plt.savefig(path + "Prediction_linear_CI.png")
 ```
 
 
@@ -154,7 +157,7 @@ plt.savefig(path + 'Estimation_linear.png')
 
 
 ```python
-[test_predict, test_PI_U, test_PI_L] = model_linear.predict(data_train, data_test, PI = True)
+[test_predict, test_PI_U, test_PI_L] = model_linear.predict(data_train, data_test, CI = True)
 x_np = data_test.x.detach().numpy().reshape(-1)
 x_smooth = np.linspace(x_np.min(), x_np.max(), 200)  # Create finer x-points
 degree = 4
@@ -181,7 +184,9 @@ for handle in lgnd.legend_handles[:3]:
 plt.savefig(path + "Prediction_linear.png")
 ```
 
-    /Users/zhanwentao/opt/anaconda3/envs/NN/lib/python3.10/site-packages/geospaNN/utils.py:1136: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/native/TensorShape.cpp:3575.)
+    /Users/zhanwentao/opt/anaconda3/envs/NN/lib/python3.10/site-packages/geospaNN/model.py:330: UserWarning: Please use argument PI instead of CI to indicate whether to create prediction interval.
+      warnings.warn("Please use argument PI instead of CI to indicate whether to create prediction interval.")
+    /Users/zhanwentao/opt/anaconda3/envs/NN/lib/python3.10/site-packages/geospaNN/utils.py:459: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/native/TensorShape.cpp:3575.)
       w_test[i] = torch.dot(bi.T, w_train[ind]).squeeze()
 
 
@@ -193,69 +198,9 @@ plt.savefig(path + "Prediction_linear.png")
 
 
 ```python
-cov = geospaNN.make_cov(data_train.pos, model_linear.theta)
-x = torch.concat([torch.ones(data_train.x.shape[0], 1), data_train.x], axis=1)
-```
+import pandas as pd
 
-
-```python
-i = 0
-self = cov
-idx = np.array(range(self.n))
-result = torch.empty((len(idx), x.shape[1]))
-for k in range(len(idx)):
-    i = idx[k]
-    ind = self.Ind_list[i, :][self.Ind_list[i, :] >= 0]
-    #result[i,:] = np.dot(self.B[i, range(len(ind))].reshape(-1), C_Ni[ind, :])
-    result[k,:] = torch.matmul(self.B[i, range(len(ind))].reshape(-1), x[ind,:])
-```
-
-
-```python
-Z = cov.decorrelate(x)
-```
-
-
-```python
-with torch.no_grad():
-    print(torch.linalg.pinv(Z.T @ Z))
-```
-
-    tensor([[ 0.2407, -0.4116],
-            [-0.4116,  0.9104]])
-
-
-
-```python
-Z.shape
-```
-
-
-
-
-    torch.Size([600, 2])
-
-
-
-
-```python
-torch.sqrt(torch.reciprocal(self.F_diag)).reshape(-1,1)*result
-```
-
-
-
-
-    tensor([[ 0.3474,  0.1595],
-            [ 0.3474,  0.0753],
-            [ 0.3474,  0.2285],
-            ...,
-            [ 0.0497,  0.0402],
-            [ 0.0867,  0.0365],
-            [ 0.0292, -0.0207]], grad_fn=<MulBackward0>)
-
-
-
-
-```python
-
+data = torch.concatenate([data_train.x, data_train.y.reshape(-1,1), data_train.pos], axis = 1)
+df = pd.DataFrame(data)
+df.to_csv(path+"tensor.csv", index=False)
 ```

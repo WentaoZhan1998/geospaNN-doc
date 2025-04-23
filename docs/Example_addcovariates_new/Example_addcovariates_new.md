@@ -44,8 +44,8 @@ def f1(X): return 10 * np.sin(2 * np.pi * X)
     
 sigma = 5
 phi = 0.3
-tau = 0.01
-theta = torch.tensor([sigma, phi / np.sqrt(2), tau])
+Lambda = 0.01
+theta = torch.tensor([sigma, phi / np.sqrt(2), Lambda])
 
 p = 1;
 funXY = f1
@@ -318,7 +318,7 @@ predict_nn_add = mlp_nn_add(data_add_test.x).detach().numpy().reshape(-1)
 
 
 ```python
-K, phi_temp = geospaNN.coord_basis(coord)
+K, phi_temp = geospaNN.coord_basis(coord, num_basis = [2 ** 2, 4 ** 2, 6 ** 2])
 torch.manual_seed(2024)
 np.random.seed(0)
 data_DK_train, data_DK_val, data_DK_test = geospaNN.split_data(torch.concat([X, phi_temp], axis = 1).float(), 

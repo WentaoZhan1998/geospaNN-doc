@@ -5,12 +5,12 @@ import numpy as np
 import time
 import pandas as pd
 import seaborn as sns
-import random
+import lhsmdu
 
 import matplotlib
 import matplotlib.pyplot as plt
 
-path = '../data/Output/'
+path = '/Users/zhanwentao/Documents/Abhi/Conference/IBC2024/data/'
 ```
 
     R[write to console]: Loading required package: BRISC
@@ -40,15 +40,14 @@ path = '../data/Output/'
 
 ```python
 def f5(X): return (10 * np.sin(np.pi * X[:, 0] * X[:, 1]) + 20 * (X[:, 2] - 0.5) ** 2 + 10 * X[:, 3] + 5 * X[:, 4]) / 6
-def f1(X): return 10 * np.sin(2 * np.pi * X)
-    
-sigma = 5
-phi = 0.3
-Lambda = 0.01
-theta = torch.tensor([sigma, phi / np.sqrt(2), Lambda])
 
-p = 1;
-funXY = f1
+sigma = 1
+phi = 1
+tau = 0.01
+theta = torch.tensor([sigma, phi / np.sqrt(2), tau])
+
+p = 5;
+funXY = f5
 
 n = 1000
 b = 10
@@ -58,37 +57,10 @@ batch_size = 50
 
 
 ```python
-rho = np.sqrt(0.7)  # AR(1) coefficient #0.7
-sigma_AR = 5  # Standard deviation of noise
-x0 = 0  # Initial value
+torch.manual_seed(2024)
+X, Y, coord, cov, corerr = geospaNN.Simulation(n, p, nn, funXY, theta, range=[0, b])
 
-# Simulate white noise
-np.random.seed(2024) #2025
-epsilon = np.random.normal(0, sigma_AR, n)
-
-# Initialize the process
-corerr = np.zeros(n)
-corerr[0] = x0
-
-# Generate AR(1) process
-for t in range(1, n):
-    corerr[t] = rho * corerr[t-1] + epsilon[t]
-
-coord = torch.zeros((n,2))
-coord[:,0] = torch.tensor(range(n))/100
-
-#corerr = corerr - corerr.mean()
-```
-
-
-```python
-torch.manual_seed(2024) #2025
-X, _, _, _, _ = geospaNN.Simulation(n, p, nn, funXY, theta, range=[0, b])
-Y = funXY(X) + corerr.reshape((-1,1))
-Y = Y.reshape(-1)
-
-random.seed(2024)
-X, Y, coord, _ = geospaNN.spatial_order(X.float(), Y.float(), coord, method='max-min')
+X, Y, coord, _ = geospaNN.spatial_order(X, Y, coord, method='max-min')
 data = geospaNN.make_graph(X, Y, coord, nn)
 
 torch.manual_seed(2024)
@@ -99,26 +71,42 @@ data_train, data_val, data_test = geospaNN.split_data(X, Y, coord, neighbor_size
 
 
 ```python
+def f5(X): return (10 * np.sin(np.pi * X[:, 0] * X[:, 1]) + 20 * (X[:, 2] - 0.5) ** 2 + 
+                   10 * X[:, 3] + 5 * X[:, 4]) / 6
+    
+PDP_truth = geospaNN.visualize.plot_PDP(f5, X, names = ["PDP"], save_path = path, save = True)
+```
+
+    /Users/zhanwentao/opt/anaconda3/envs/NN/lib/python3.10/site-packages/geospaNN/visualize.py:147: UserWarning: length of names does not match columns of X, replace by variable index
+      warnings.warn("length of names does not match columns of X, replace by variable index")
+
+
+
+    
+![png](output_3_1.png)
+    
+
+
+
+```python
 torch.manual_seed(2024)
 mlp_nn = torch.nn.Sequential(
-    torch.nn.Linear(p, 100),
-    torch.nn.ReLU(),
-    torch.nn.Linear(100, 50),
+    torch.nn.Linear(p, 50),
     torch.nn.ReLU(),
     torch.nn.Linear(50, 20),
     torch.nn.ReLU(),
-    torch.nn.Linear(20, 1),
+    torch.nn.Linear(20, 1)
 )
 trainer_nn = geospaNN.nn_train(mlp_nn, lr=0.01, min_delta=0.001)
-training_log = trainer_nn.train(data_train, data_val, data_test, seed = 2025)
-theta0 = geospaNN.theta_update(mlp_nn(data_train.x).squeeze() - data_train.y, 
-                               data_train.pos, neighbor_size=20)
+training_log = trainer_nn.train(data_train, data_val, data_test, seed = 2)
+theta0 = geospaNN.theta_update(mlp_nn(data_train.x).squeeze() - data_train.y, data_train.pos, neighbor_size=20)
+print(theta0)
 ```
 
-    Epoch 00028: reducing learning rate of group 0 to 5.0000e-03.
-    Epoch 00041: reducing learning rate of group 0 to 2.5000e-03.
+    Epoch 00016: reducing learning rate of group 0 to 5.0000e-03.
+    Epoch 00073: reducing learning rate of group 0 to 2.5000e-03.
     INFO: Early stopping
-    End at epoch44
+    End at epoch76
     ---------------------------------------- 
     	Ordering Coordinates 
     ----------------------------------------
@@ -143,28 +131,35 @@ theta0 = geospaNN.theta_update(mlp_nn(data_train.x).squeeze() - data_train.y,
     	Processing optimizers
     ----------------------------------------
     Theta estimated as
-    [7.47109114e+01 2.15550560e+01 1.00000000e-03]
+    [0.65123633 1.24014876 0.12671326]
+    [0.65123633 1.24014876 0.12671326]
+
+
+
+```python
+PDP_NN = geospaNN.visualize.plot_PDP(mlp_nn, X, names = ["PDP"], save_path = path, save = True)
+```
+
+
+    
+![png](output_5_0.png)
+    
 
 
 
 ```python
 torch.manual_seed(2024)
 mlp_nngls = torch.nn.Sequential(
-    torch.nn.Linear(p, 100),
-    torch.nn.ReLU(),
-    torch.nn.Linear(100, 50),
+    torch.nn.Linear(p, 50),
     torch.nn.ReLU(),
     torch.nn.Linear(50, 20),
     torch.nn.ReLU(),
-    torch.nn.Linear(20, 1),
+    torch.nn.Linear(20, 1)
 )
-model = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nngls, 
-                       theta=torch.tensor(theta0))
-trainer_nngls = geospaNN.nngls_train(model, lr=0.1, min_delta=0.001)
-training_log = trainer_nngls.train(data_train, data_val, data_test, epoch_num= 200, 
-                                   Update_init=20, Update_step=5, seed = 2025)
-theta1 = geospaNN.theta_update(mlp_nngls(data_train.x).squeeze() - data_train.y,
-                               data_train.pos, neighbor_size=20)
+nngls = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nngls, theta=torch.tensor(theta0))
+trainer_nngls = geospaNN.nngls_train(nngls, lr=0.01, min_delta=0.001)
+training_log = trainer_nngls.train(data_train, data_val, data_test,
+                                   Update_init=20, Update_step=10, seed = 2)
 ```
 
     ---------------------------------------- 
@@ -191,10 +186,9 @@ theta1 = geospaNN.theta_update(mlp_nngls(data_train.x).squeeze() - data_train.y,
     	Processing optimizers
     ----------------------------------------
     Theta estimated as
-    [7.59856517e+01 2.17174060e+01 4.19267552e-02]
+    [0.78318588 1.11029564 0.05457131]
     to
-    [7.59856517e+01 2.17174060e+01 4.19267552e-02]
-    Epoch 00022: reducing learning rate of group 0 to 5.0000e-02.
+    [0.78318588 1.11029564 0.05457131]
     ---------------------------------------- 
     	Ordering Coordinates 
     ----------------------------------------
@@ -219,69 +213,100 @@ theta1 = geospaNN.theta_update(mlp_nngls(data_train.x).squeeze() - data_train.y,
     	Processing optimizers
     ----------------------------------------
     Theta estimated as
-    [7.56805949e+01 2.13088946e+01 1.00000000e-03]
+    [0.76216852 1.05608339 0.05145504]
     to
-    [7.56805949e+01 2.13088946e+01 1.00000000e-03]
+    [0.76216852 1.05608339 0.05145504]
+    Epoch 00033: reducing learning rate of group 0 to 5.0000e-03.
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.76597257 1.06673017 0.01960259]
+    to
+    [0.76597257 1.06673017 0.01960259]
+    Epoch 00044: reducing learning rate of group 0 to 2.5000e-03.
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.76564834 1.011624   0.01891201]
+    to
+    [0.76564834 1.011624   0.01891201]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.76660056 1.00136195 0.01819021]
+    to
+    [0.76660056 1.00136195 0.01819021]
+    Epoch 00061: reducing learning rate of group 0 to 1.2500e-03.
     INFO: Early stopping
-    End at epoch25
-    ---------------------------------------- 
-    	Ordering Coordinates 
-    ----------------------------------------
-    	Model description
-    ----------------------------------------
-    BRISC model fit with 600 observations.
-    
-    Number of covariates 1 (including intercept if specified).
-    
-    Using the exponential spatial correlation model.
-    
-    Using 15 nearest neighbors.
-    
-    
-    
-    Source not compiled with OpenMP support.
-    ----------------------------------------
-    	Building neighbor index
-    ----------------------------------------
-    	Performing optimization
-    ----------------------------------------
-    	Processing optimizers
-    ----------------------------------------
-    Theta estimated as
-    [7.53173550e+01 2.10391863e+01 1.00000000e-03]
+    End at epoch64
 
 
 
 ```python
-estimate = model.estimate(X)
-plt.clf()
-plt.scatter(X.detach().numpy(), Y.detach().numpy(), s=1, label='data')
-plt.scatter(X.detach().numpy(), funXY(X.detach().numpy()), s=1, label='f(x)')
-plt.scatter(X.detach().numpy(), estimate, s=1, label='NNGLS')
-plt.scatter(X.detach().numpy(), mlp_nn(X).detach().numpy(), s=1, label='NN')
-lgnd = plt.legend()
-plt.ylim([-15, 15])
-for handle in lgnd.legend_handles:
-    handle.set_sizes([10.0])
-plt.savefig(path + 'Estimation_AR.png')
-```
-
-
-    
-![png](output_6_0.png)
-    
-
-
-
-```python
-estimate = model.estimate(X)
-plt.clf()
-plt.scatter(range(n), corerr, s=1, label='AR1 process')
-plt.ylim([-20, 20])
-lgnd = plt.legend()
-for handle in lgnd.legend_handles:
-    handle.set_sizes([10.0])
-plt.savefig(path + 'AR.png')
+PDP_NNGLS = geospaNN.visualize.plot_PDP(mlp_nngls, X, names = ["PDP"], save_path = path, save = True)
 ```
 
 
@@ -292,39 +317,29 @@ plt.savefig(path + 'AR.png')
 
 
 ```python
-def RMSE(x,y):
-    x = x.reshape(-1)
-    y = y.reshape(-1)
-    n = x.shape[0]
-    return(np.sqrt(np.sum(np.square(x-y))/n))
-
+geospaNN.visualize.plot_PDP_list([funXY, mlp_nngls, mlp_nn], ['Friedmans function', 'NNGLS', 'NN'], X, split = True, save_path = path, save = True)
 ```
 
 
-```python
-RMSE(estimate.detach().numpy(), funXY(X).reshape(-1).detach().numpy())
-```
+    
+![png](output_8_0.png)
+    
 
 
 
-
-    0.5564364208770987
-
-
-
-
-```python
-RMSE(mlp_nn(X).detach().numpy(), funXY(X).reshape(-1).detach().numpy())
-```
+    
+![png](output_8_1.png)
+    
 
 
 
+    
+![png](output_8_2.png)
+    
 
-    0.9576370212929225
 
 
+    
+![png](output_8_3.png)
+    
 
-
-```python
-
-```

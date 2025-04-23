@@ -13,6 +13,29 @@ import matplotlib.pyplot as plt
 path = '../data/Output/'
 ```
 
+    R[write to console]: Loading required package: BRISC
+    
+    R[write to console]: Loading required package: RANN
+    
+    R[write to console]: Loading required package: parallel
+    
+    R[write to console]: Loading required package: rdist
+    
+    R[write to console]: Loading required package: matrixStats
+    
+    R[write to console]: Loading required package: pbapply
+    
+    R[write to console]: The ordering of inputs x (covariates) and y (response) in BRISC_estimation has been changed BRISC 1.0.0 onwards.
+      Please check the new documentation with ?BRISC_estimation.
+    
+
+
+    R package: BRISC installed
+
+
+    /Users/zhanwentao/opt/anaconda3/envs/NN/lib/python3.10/site-packages/pandas/core/arrays/masked.py:60: UserWarning: Pandas requires version '1.3.6' or newer of 'bottleneck' (version '1.3.5' currently installed).
+      from pandas.core import (
+
 
 
 ```python
@@ -30,8 +53,8 @@ batch_size = 50
 
 sigma = 1
 phi = 0.3
-tau = 0.01
-theta = torch.tensor([sigma, phi / np.sqrt(2), tau])
+Lambda = 0.01
+theta = torch.tensor([sigma, phi / np.sqrt(2), Lambda])
 
 X, Y, coord, cov, corerr = geospaNN.Simulation(n, p, nn, funXY, theta, range=[0, 1])
 ```
@@ -41,7 +64,7 @@ X, Y, coord, cov, corerr = geospaNN.Simulation(n, p, nn, funXY, theta, range=[0,
 torch.manual_seed(2025)
 _, _, _, _, X = geospaNN.Simulation(n, p, nn, funXY, torch.tensor([1, 5, 0.01]), range=[0, 1])
 X = X.reshape(-1,p)
-X = (X - X.min())/(X.max() - X.min())
+X = (X - X.min(dim=0).values) / (X.max(dim=0).values - X.min(dim=0).values)
 torch.manual_seed(2025)
 _, _, coord, cov, corerr = geospaNN.Simulation(n, p, nn, funXY, theta, range=[0, 1])
 Y = funXY(X).reshape(-1) + corerr
@@ -139,7 +162,6 @@ plt.savefig(path + "order_max-min.png")
 ```python
 data = geospaNN.make_graph(X, Y, coord, nn, Ind_list = None)
 
-torch.manual_seed(2024)
 np.random.seed(0)
 data_train, data_val, data_test = geospaNN.split_data(X, Y, coord, neighbor_size=nn, 
                                                       test_proportion=0.2, val_proportion=0.2)
@@ -193,7 +215,8 @@ mlp_nn = torch.nn.Sequential(
     torch.nn.Linear(20, 1),
 )
 trainer_nn = geospaNN.nn_train(mlp_nn, lr=0.01, min_delta=0.001)
-training_log = trainer_nn.train(data_train, data_val, data_test, seed = 2025)
+training_log = trainer_nn.train(data_train, data_val, data_test, epoch_num= 200,
+                                batch_size = 60, seed = 2025)
 theta0 = geospaNN.theta_update(mlp_nn(data_train.x).squeeze() - data_train.y, 
                                data_train.pos, neighbor_size=20)
 ```
@@ -244,7 +267,8 @@ model = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nngls,
                        theta=torch.tensor(theta0))
 trainer_nngls = geospaNN.nngls_train(model, lr=0.1, min_delta=0.001)
 training_log = trainer_nngls.train(data_train, data_val, data_test, epoch_num= 200, 
-                                   Update_init=10, Update_step=2, seed = 2025)
+                                   Update_init=10, Update_step=2, 
+                                   batch_size = 60, seed = 2025)
 theta1 = geospaNN.theta_update(mlp_nngls(data_train.x).squeeze() - data_train.y,
                                data_train.pos, neighbor_size=20)
 ```
@@ -274,7 +298,687 @@ theta1 = geospaNN.theta_update(mlp_nngls(data_train.x).squeeze() - data_train.y,
     ----------------------------------------
     Theta estimated as
     [ 1.24232833 15.51145856  0.07333078]
-    ...
+    to
+    [ 1.24232833 15.51145856  0.07333078]
+    Epoch 00012: reducing learning rate of group 0 to 5.0000e-02.
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [ 1.35535811 10.61616538  0.08646388]
+    to
+    [ 1.35535811 10.61616538  0.08646388]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [ 1.12544492 12.83953528  0.10327044]
+    to
+    [ 1.12544492 12.83953528  0.10327044]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [ 1.03850592 11.45084703  0.11185151]
+    to
+    [ 1.03850592 11.45084703  0.11185151]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [ 0.96384334 11.06134171  0.11306855]
+    to
+    [ 0.96384334 11.06134171  0.11306855]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [ 0.82377046 11.47217352  0.1231592 ]
+    to
+    [ 0.82377046 11.47217352  0.1231592 ]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [ 0.72173472 10.91175936  0.13487193]
+    to
+    [ 0.72173472 10.91175936  0.13487193]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [ 0.60396951 10.82527486  0.14589299]
+    to
+    [ 0.60396951 10.82527486  0.14589299]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [ 0.55151587 10.06652267  0.12801193]
+    to
+    [ 0.55151587 10.06652267  0.12801193]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.40781704 9.39118236 0.1561977 ]
+    to
+    [0.40781704 9.39118236 0.1561977 ]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.30694624 9.08081573 0.146868  ]
+    to
+    [0.30694624 9.08081573 0.146868  ]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.22598095 7.23023145 0.03769897]
+    to
+    [0.22598095 7.23023145 0.03769897]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [ 0.46285773 22.77682505  0.09996755]
+    to
+    [ 0.46285773 22.77682505  0.09996755]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.34806565 6.86645721 0.09523623]
+    to
+    [0.34806565 6.86645721 0.09523623]
+    Epoch 00038: reducing learning rate of group 0 to 2.5000e-02.
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.3661447  3.91427602 0.04449152]
+    to
+    [0.3661447  3.91427602 0.04449152]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.2511542  3.55727514 0.05059801]
+    to
+    [0.2511542  3.55727514 0.05059801]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.21396876 7.84893381 0.0423222 ]
+    to
+    [0.21396876 7.84893381 0.0423222 ]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.31587178 5.53596972 0.03127011]
+    to
+    [0.31587178 5.53596972 0.03127011]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.38983486 1.64041481 0.01559749]
+    to
+    [0.38983486 1.64041481 0.01559749]
+    Epoch 00047: reducing learning rate of group 0 to 1.2500e-02.
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.39413402 1.66801327 0.00856794]
+    to
+    [0.39413402 1.66801327 0.00856794]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.25421447 2.7303433  0.01033741]
+    to
+    [0.25421447 2.7303433  0.01033741]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.43749844 1.46450099 0.00811349]
+    to
+    [0.43749844 1.46450099 0.00811349]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.58389048 1.61938441 0.0053379 ]
+    to
+    [0.58389048 1.61938441 0.0053379 ]
+    Epoch 00056: reducing learning rate of group 0 to 6.2500e-03.
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.24423305 3.25073961 0.01146712]
+    to
+    [0.24423305 3.25073961 0.01146712]
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.46419691 1.49267299 0.00342654]
+    to
+    [0.46419691 1.49267299 0.00342654]
+    INFO: Early stopping
+    End at epoch59
+    ---------------------------------------- 
+    	Ordering Coordinates 
+    ----------------------------------------
+    	Model description
+    ----------------------------------------
+    BRISC model fit with 600 observations.
+    
+    Number of covariates 1 (including intercept if specified).
+    
+    Using the exponential spatial correlation model.
+    
+    Using 15 nearest neighbors.
+    
+    
+    
+    Source not compiled with OpenMP support.
+    ----------------------------------------
+    	Building neighbor index
+    ----------------------------------------
+    	Performing optimization
+    ----------------------------------------
+    	Processing optimizers
+    ----------------------------------------
+    Theta estimated as
+    [0.62954216 1.0538271  0.00291746]
 
 
 
@@ -316,8 +1020,8 @@ plt.clf()
 plt.scatter(data_test.x.detach().numpy(), data_test.y.detach().numpy(), s=1, label='data')
 plt.scatter(data_test.x.detach().numpy(), funXY(data_test.x.detach().numpy()), s=1, label='f(x)')
 plt.scatter(data_test.x.detach().numpy(), test_predict.detach().numpy(), s=1, label='NNGLS prediction')
-#plt.plot(x_smooth, y_smooth_U, linestyle='--', label='NNGLS PI_U', color = 'red', alpha = 0.5)
-#plt.plot(x_smooth, y_smooth_L, linestyle='--', label='NNGLS PI_L', color = 'red', alpha = 0.5)
+plt.plot(x_smooth, y_smooth_U, linestyle='--', label='NNGLS PI_U', color = 'red', alpha = 0.5)
+plt.plot(x_smooth, y_smooth_L, linestyle='--', label='NNGLS PI_L', color = 'red', alpha = 0.5)
 plt.xlabel("X", fontsize=15)
 plt.ylabel("Y", fontsize=15)
 lgnd = plt.legend()
@@ -419,57 +1123,11 @@ geospaNN.spatial_plot_surface(test_predict.detach().numpy(), data_test.pos.detac
 
 
 ```python
-def plot_log(training_log, theta):
-    epoch = len(training_log["val_loss"])
-    training_log["epoch"] = list(range(1, epoch + 1))
-    training_log = pd.DataFrame(training_log)
-
-    # Melting the dataframe to make it suitable for seaborn plotting
-    training_log_melted = training_log[["epoch", "val_loss"]].melt(id_vars='epoch', var_name='Variable', value_name='Value')
-    # Plotting with seaborn
-    # Creating two subplots side by side
-    fig, axes = plt.subplots(1, 2, figsize=(20, 6))
-    sns.lineplot(ax=axes[0], data=training_log_melted, x='epoch', y='Value', hue='Variable', style='Variable', markers=False, dashes=False)
-
-    axes[0].set_title('Validation and prediction loss over Epochs (Log Scale) with Benchmark', fontsize=14)
-    axes[0].set_xlabel('Epoch', fontsize=15)
-    axes[0].set_ylabel('Value (Log Scale)', fontsize=15)
-    axes[0].set_yscale('log')
-    axes[0].legend(prop={'size': 15})
-    axes[0].tick_params(labelsize=14)
-    axes[0].grid(True)
-
-    # Second plot (sigma, phi, tau)
-    kernel_params_melted = training_log[["epoch", "sigma", "phi", "tau"]].melt(id_vars='epoch', var_name='Variable', value_name='Value')
-    ground_truth = {'sigma': theta[0], 'phi': theta[1], 'tau': theta[2]}
-    sns.lineplot(ax=axes[1], data=kernel_params_melted, x='epoch', y='Value', hue='Variable', style='Variable', markers=False, dashes=False)
-    palette = sns.color_palette()
-    for i, (param, gt_value) in enumerate(ground_truth.items()):
-        axes[1].hlines(y=gt_value, xmin=1, xmax=epoch, color=palette[i], linestyle='--')
-    axes[1].set_title('Parameter Values over Epochs with Ground Truth', fontsize=14)
-    axes[1].set_xlabel('Epoch', fontsize=15)
-    axes[1].set_ylabel('Value', fontsize=15)
-    axes[1].set_yscale('log')
-    axes[1].legend(prop={'size': 15})
-    axes[1].tick_params(labelsize=14)
-    axes[1].grid(True)
-
-    plt.tight_layout()
-    
-```
-
-
-```python
 geospaNN.plot_log(training_log, theta, path, save = True)
 ```
 
 
     
-![png](output_17_0.png)
+![png](output_16_0.png)
     
 
-
-
-```python
-
-```
