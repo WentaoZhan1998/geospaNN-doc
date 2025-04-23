@@ -546,8 +546,7 @@ cov(N(i), N(i)).
 
               <details class="quote">
                 <summary>Source code in <code>geospaNN/model.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
-<span class="normal">44</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">44</span>
 <span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
@@ -585,7 +584,8 @@ cov(N(i), N(i)).
 <span class="normal">79</span>
 <span class="normal">80</span>
 <span class="normal">81</span>
-<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">InverseCovMat</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="normal">82</span>
+<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">InverseCovMat</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A feed-forward layer that returns inverses of nearest neighbor covariance matrices. For neighbor size k, and batch size b,</span>
 <span class="sd">    the feed-forward layer will return a bxkxk tensor, where the ith kxk matrix is the inverse of neighbor covariance matrix</span>
@@ -740,8 +740,7 @@ message-passing layer will return a bxp tensor, where the ith row is the covaria
 
               <details class="quote">
                 <summary>Source code in <code>geospaNN/model.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 9</span>
-<span class="normal">10</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
@@ -772,7 +771,8 @@ message-passing layer will return a bxp tensor, where the ith row is the covaria
 <span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
-<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NeighborCovVec</span><span class="p">(</span><span class="n">MessagePassing</span><span class="p">):</span>
+<span class="normal">41</span>
+<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NeighborCovVec</span><span class="p">(</span><span class="n">MessagePassing</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A message-passing layer that returns covariance vectors for a single batch. For neighbor size k, and batch size b, the</span>
 <span class="sd">    message-passing layer will return a bxp tensor, where the ith row is the covariance vector cov(i, N(i)).</span>
@@ -910,8 +910,7 @@ output from the size-p nearest neighborhood of location i.
 
               <details class="quote">
                 <summary>Source code in <code>geospaNN/model.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">129</span>
-<span class="normal">130</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">130</span>
 <span class="normal">131</span>
 <span class="normal">132</span>
 <span class="normal">133</span>
@@ -940,7 +939,8 @@ output from the size-p nearest neighborhood of location i.
 <span class="normal">156</span>
 <span class="normal">157</span>
 <span class="normal">158</span>
-<span class="normal">159</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NeighborInfo</span><span class="p">(</span><span class="n">MessagePassing</span><span class="p">):</span>
+<span class="normal">159</span>
+<span class="normal">160</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NeighborInfo</span><span class="p">(</span><span class="n">MessagePassing</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A message-passing layer that collect the output of the nearest neighborhood. For neighbor size k, batch size b,</span>
 <span class="sd">    the message-passing layer will return a bxk tensor, where the ith row is the</span>
@@ -1087,8 +1087,7 @@ concatenation of k d-dimensional coordinates representing the k-nearest neighbor
 
               <details class="quote">
                 <summary>Source code in <code>geospaNN/model.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 85</span>
-<span class="normal"> 86</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 86</span>
 <span class="normal"> 87</span>
 <span class="normal"> 88</span>
 <span class="normal"> 89</span>
@@ -1128,7 +1127,8 @@ concatenation of k d-dimensional coordinates representing the k-nearest neighbor
 <span class="normal">123</span>
 <span class="normal">124</span>
 <span class="normal">125</span>
-<span class="normal">126</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NeighborPositions</span><span class="p">(</span><span class="n">MessagePassing</span><span class="p">):</span>
+<span class="normal">126</span>
+<span class="normal">127</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NeighborPositions</span><span class="p">(</span><span class="n">MessagePassing</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A message-passing layer that collect the coordinates of the nearest neighborhood. For neighbor size k, batch size b,</span>
 <span class="sd">    and coordinates&#39; dimension d, the message-passing layer will return a bx(k*d) tensor, where the ith row is the</span>
@@ -1361,15 +1361,18 @@ is the number of features.</p>
             </tr>
       </tbody>
     </table>
-        <p>See Also:
-nngls_train : Training class for NN-GLS model. 
+
+
+<details class="see-also" open>
+  <summary>See Also</summary>
+  <p>nngls_train : Training class for NN-GLS model. 
 Datta, Abhirup, et al. "Hierarchical nearest-neighbor Gaussian process models for large geostatistical datasets."
 Journal of the American Statistical Association 111.514 (2016): 800-812. 
 Datta, Abhirup. "Sparse nearest neighbor Cholesky matrices in spatial statistics."
 arXiv preprint arXiv:2102.13299 (2021). 
 ZZhan, Wentao, and Abhirup Datta. 2024. “Neural Networks for Geospatial Data.”
 Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621459.2024.2356293.</p>
-
+</details>
 
 
 
@@ -1377,8 +1380,7 @@ Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621
 
               <details class="quote">
                 <summary>Source code in <code>geospaNN/model.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
-<span class="normal">162</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">162</span>
 <span class="normal">163</span>
 <span class="normal">164</span>
 <span class="normal">165</span>
@@ -1553,7 +1555,10 @@ Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621
 <span class="normal">334</span>
 <span class="normal">335</span>
 <span class="normal">336</span>
-<span class="normal">337</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">nngls</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">nngls</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A feed-forward module implementing the NN-GLS algorithm from Zhan et.al 2023. Where the outputs and responses are</span>
 <span class="sd">    spatially decorrelated using NNGP approximation proposed by Datta et.al 2016. The decorrelation is implemented by</span>
@@ -1597,16 +1602,16 @@ Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621
 
 
 <span class="sd">    See Also:</span>
-<span class="sd">    nngls_train : Training class for NN-GLS model. \</span>
+<span class="sd">        nngls_train : Training class for NN-GLS model. \</span>
 
-<span class="sd">    Datta, Abhirup, et al. &quot;Hierarchical nearest-neighbor Gaussian process models for large geostatistical datasets.&quot;</span>
-<span class="sd">    Journal of the American Statistical Association 111.514 (2016): 800-812. \</span>
+<span class="sd">        Datta, Abhirup, et al. &quot;Hierarchical nearest-neighbor Gaussian process models for large geostatistical datasets.&quot;</span>
+<span class="sd">        Journal of the American Statistical Association 111.514 (2016): 800-812. \</span>
 
-<span class="sd">    Datta, Abhirup. &quot;Sparse nearest neighbor Cholesky matrices in spatial statistics.&quot;</span>
-<span class="sd">    arXiv preprint arXiv:2102.13299 (2021). \</span>
+<span class="sd">        Datta, Abhirup. &quot;Sparse nearest neighbor Cholesky matrices in spatial statistics.&quot;</span>
+<span class="sd">        arXiv preprint arXiv:2102.13299 (2021). \</span>
 
-<span class="sd">    ZZhan, Wentao, and Abhirup Datta. 2024. “Neural Networks for Geospatial Data.”</span>
-<span class="sd">    Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621459.2024.2356293.\</span>
+<span class="sd">        ZZhan, Wentao, and Abhirup Datta. 2024. “Neural Networks for Geospatial Data.”</span>
+<span class="sd">        Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621459.2024.2356293.\</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -1687,6 +1692,7 @@ Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621
     <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                 <span class="n">data_train</span><span class="p">:</span> <span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">,</span>
                 <span class="n">data_test</span><span class="p">:</span> <span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">,</span>
+                <span class="n">PI</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                 <span class="n">CI</span><span class="p">:</span><span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
                 <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Kriging prediction on a test dataset.</span>
@@ -1720,9 +1726,10 @@ Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621
 <span class="sd">            Zhan, Wentao, and Abhirup Datta. 2024. “Neural Networks for Geospatial Data.”</span>
 <span class="sd">            Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621459.2024.2356293.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Please use argument PI instead of CI to indicate whether to create prediction interval.&quot;</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
             <span class="n">w_train</span> <span class="o">=</span> <span class="n">data_train</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">data_train</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">CI</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">PI</span> <span class="ow">or</span> <span class="n">CI</span><span class="p">:</span>
                 <span class="n">w_test</span><span class="p">,</span> <span class="n">w_u</span><span class="p">,</span> <span class="n">w_l</span> <span class="o">=</span> <span class="n">krig_pred</span><span class="p">(</span><span class="n">w_train</span><span class="p">,</span> <span class="n">data_train</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="n">data_test</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
                 <span class="n">estimation_test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">data_test</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
                 <span class="k">return</span> <span class="p">[</span><span class="n">estimation_test</span> <span class="o">+</span> <span class="n">w_test</span><span class="p">,</span> <span class="n">estimation_test</span> <span class="o">+</span> <span class="n">w_u</span><span class="p">,</span> <span class="n">estimation_test</span> <span class="o">+</span> <span class="n">w_l</span><span class="p">]</span>
@@ -1814,8 +1821,7 @@ Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621
 
             <details class="quote">
               <summary>Source code in <code>geospaNN/model.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">277</span>
-<span class="normal">278</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">278</span>
 <span class="normal">279</span>
 <span class="normal">280</span>
 <span class="normal">281</span>
@@ -1827,7 +1833,8 @@ Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621
 <span class="normal">287</span>
 <span class="normal">288</span>
 <span class="normal">289</span>
-<span class="normal">290</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="normal">290</span>
+<span class="normal">291</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
              <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimate the non-spatial effect with covariates X,</span>
 
@@ -1937,8 +1944,7 @@ The original output vector computed of the multi-layer perceptron.</p>
 
             <details class="quote">
               <summary>Source code in <code>geospaNN/model.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">239</span>
-<span class="normal">240</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">240</span>
 <span class="normal">241</span>
 <span class="normal">242</span>
 <span class="normal">243</span>
@@ -1973,7 +1979,8 @@ The original output vector computed of the multi-layer perceptron.</p>
 <span class="normal">272</span>
 <span class="normal">273</span>
 <span class="normal">274</span>
-<span class="normal">275</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+<span class="normal">275</span>
+<span class="normal">276</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Feed-forward step with spatially decorrelated output.</span>
 
 <span class="sd">    Parameters:</span>
@@ -2020,7 +2027,7 @@ The original output vector computed of the multi-layer perceptron.</p>
 
 
 <h3 id="geospaNN.model.nngls.predict" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">predict</span><span class="p">(</span><span class="n">data_train</span><span class="p">,</span> <span class="n">data_test</span><span class="p">,</span> <span class="n">CI</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">predict</span><span class="p">(</span><span class="n">data_train</span><span class="p">,</span> <span class="n">data_test</span><span class="p">,</span> <span class="n">PI</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">CI</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2141,8 +2148,7 @@ Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621
 </details>
             <details class="quote">
               <summary>Source code in <code>geospaNN/model.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">292</span>
-<span class="normal">293</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">293</span>
 <span class="normal">294</span>
 <span class="normal">295</span>
 <span class="normal">296</span>
@@ -2186,9 +2192,13 @@ Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621
 <span class="normal">334</span>
 <span class="normal">335</span>
 <span class="normal">336</span>
-<span class="normal">337</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">data_train</span><span class="p">:</span> <span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">,</span>
             <span class="n">data_test</span><span class="p">:</span> <span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">,</span>
+            <span class="n">PI</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">CI</span><span class="p">:</span><span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
             <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Kriging prediction on a test dataset.</span>
@@ -2222,9 +2232,10 @@ Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621
 <span class="sd">        Zhan, Wentao, and Abhirup Datta. 2024. “Neural Networks for Geospatial Data.”</span>
 <span class="sd">        Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621459.2024.2356293.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Please use argument PI instead of CI to indicate whether to create prediction interval.&quot;</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
         <span class="n">w_train</span> <span class="o">=</span> <span class="n">data_train</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">data_train</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">CI</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">PI</span> <span class="ow">or</span> <span class="n">CI</span><span class="p">:</span>
             <span class="n">w_test</span><span class="p">,</span> <span class="n">w_u</span><span class="p">,</span> <span class="n">w_l</span> <span class="o">=</span> <span class="n">krig_pred</span><span class="p">(</span><span class="n">w_train</span><span class="p">,</span> <span class="n">data_train</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="n">data_test</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="n">estimation_test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">data_test</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">estimation_test</span> <span class="o">+</span> <span class="n">w_test</span><span class="p">,</span> <span class="n">estimation_test</span> <span class="o">+</span> <span class="n">w_u</span><span class="p">,</span> <span class="n">estimation_test</span> <span class="o">+</span> <span class="n">w_l</span><span class="p">]</span>
@@ -2345,10 +2356,7 @@ Stat 7.1 (2018): e184.</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>geospaNN/model.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">339</span>
-<span class="normal">340</span>
-<span class="normal">341</span>
-<span class="normal">342</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">342</span>
 <span class="normal">343</span>
 <span class="normal">344</span>
 <span class="normal">345</span>
@@ -2380,7 +2388,12 @@ Stat 7.1 (2018): e184.</p>
 <span class="normal">371</span>
 <span class="normal">372</span>
 <span class="normal">373</span>
-<span class="normal">374</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">linear_gls</span><span class="p">(</span><span class="n">data_train</span><span class="p">:</span> <span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">,</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">linear_gls</span><span class="p">(</span><span class="n">data_train</span><span class="p">:</span> <span class="n">torch_geometric</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">,</span>
                <span class="n">neighbor_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
                <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nngls</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Spatial linear mixed model for geospatial data</span>
@@ -2412,9 +2425,11 @@ Stat 7.1 (2018): e184.</p>
         <span class="k">return</span> <span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">beta</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">*</span> <span class="n">X</span>
 
     <span class="n">model</span> <span class="o">=</span> <span class="n">nngls</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">data_train</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">neighbor_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">coord_dimensions</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">mlp</span><span class="o">=</span><span class="n">mlp_BRISC</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">theta_hat_BRISC</span><span class="p">))</span>
-    <span class="n">cov</span> <span class="o">=</span> <span class="n">make_cov</span><span class="p">(</span><span class="n">data_train</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="n">theta_hat_BRISC</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="n">neighbor_size</span> <span class="o">=</span> <span class="n">neighbor_size</span><span class="p">)</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">make_cov</span><span class="p">(</span><span class="n">data_train</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="n">theta_hat_BRISC</span><span class="p">,</span> <span class="n">neighbor_size</span> <span class="o">=</span> <span class="n">neighbor_size</span><span class="p">)</span>
     <span class="n">Z</span> <span class="o">=</span> <span class="n">cov</span><span class="o">.</span><span class="n">decorrelate</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Z</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span>
+    <span class="n">pseudo_inv</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Z</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">pseudo_inv</span> <span class="o">+</span> <span class="n">pseudo_inv</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">model</span>
 </code></pre></div></td></tr></table></div>
             </details>
