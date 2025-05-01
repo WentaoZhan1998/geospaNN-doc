@@ -1,5 +1,5 @@
 The Python package **geospaNN** stands for 'geospatial Neural Networks', where we implement NN-GLS, 
-neural networks tailored for analysis of geospatial data that explicitly accounts for spatial dependence (Zhan et.al, 2023). 
+neural networks tailored for analysis of geospatial data that explicitly accounts for spatial dependence (Zhan et.al, 2024). 
 Geospatial data naturally exhibits spatial correlation or dependence and traditional geostatistical analysis often relies on 
 model-based approaches to handle the spatial dependency, treating the spatial outcome y(s) as a linear regression on covariates x(s) and 
 modeling dependency through the spatially correlated errors. 
@@ -14,7 +14,7 @@ The resulting loss function then becomes a generalized least squares (GLS) loss 
 thereby explicitly incorporating spatial correlation into the neural network optimization. 
 The idea mimics the extension of ordinary least squares (OLS) loss to GLS loss in linear regression for dependent data.
 
-Zhan and Datta, 2023 shows that neural networks with GLS loss can be represented as a graph neural network, 
+Zhan and Datta, 2024 shows that neural networks with GLS loss can be represented as a graph neural network, 
 with the GP covariances guiding the neighborhood aggregation on the output layer. 
 Thus NN-GLS is implemented in **geospaNN** with the framework of Graph Neural Networks (GNN), and is highly generalizable. 
 (The implementation of geospaNN' uses the 'torch_geom' module.)
@@ -29,10 +29,10 @@ Nearest Neighbor Gaussian Process (NNGP) (Datta et al., 2016) which makes it sui
 ## Citation
 Please cite the following paper when you use **geospaNN**:
 
-> Zhan, Wentao, and Abhirup Datta. 2024. “Neural Networks for Geospatial Data.” Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621459.2024.2356293.
+> Zhan, Wentao, and Abhirup Datta. 2024. “Neural Networks for Geospatial Data.” Journal of the American Statistical Association 120 (549): 535–547. https://doi.org/10.1080/01621459.2024.2356293
 > 
 ## References
 
-Datta, Abhirup, Sudipto Banerjee, Andrew O. Finley, and Alan E. Gelfand. 2016. “Hierarchical Nearest-Neighbor Gaussian Process Models for Large Geostatistical Datasets.” Journal of the American Statistical Association 111 (514): 800–812. doi:10.1080/01621459.2015.1044091.
+Datta, Abhirup, Sudipto Banerjee, Andrew O. Finley, and Alan E. Gelfand. 2016. “Hierarchical Nearest-Neighbor Gaussian Process Models for Large Geostatistical Datasets.” Journal of the American Statistical Association 111 (514): 800–812. https://doi.org/10.1080/01621459.2015.1044091.
 
-Zhan, Wentao, and Abhirup Datta. 2024. “Neural Networks for Geospatial Data.” Journal of the American Statistical Association, June, 1–21. doi:10.1080/01621459.2024.2356293.
+Zhan, Wentao, and Abhirup Datta. 2024. “Neural Networks for Geospatial Data.” Journal of the American Statistical Association 120 (549): 535–547. https://doi.org/10.1080/01621459.2024.2356293
