@@ -181,9 +181,9 @@ mlp_nngls = torch.nn.Sequential(
 )
 model = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nngls, 
                        theta=torch.tensor(theta0))
-trainer_nngls = geospaNN.nngls_train(model, lr=0.1, min_delta=0.001)
+trainer_nngls = geospaNN.nngls_train(model, lr=0.01, min_delta=0.001)
 training_log = trainer_nngls.train(data_train, data_val, data_test, epoch_num= 200, 
-                                   Update_init=10, Update_step=2, 
+                                   Update_init=20, Update_step=5, 
                                    batch_size = 60, seed = 2025)
 ```
 
@@ -267,8 +267,8 @@ plt.savefig(path + "Prediction_smoothed_PI.png")
 plt.clf()
 plt.scatter(data_test.y.detach().numpy(), data_test.y.detach().numpy(), s=1, label='data')
 plt.scatter(data_test.y.detach().numpy(), test_predict.detach().numpy(), s=1, label='NNGLS prediction')
-plt.plot(x_smooth, y_smooth_U, linestyle='--', label='PI Upper', color = 'red', alpha = 0.5)
-plt.plot(x_smooth, y_smooth_L, linestyle='--', label='PI Lower', color = 'red', alpha = 0.5)
+plt.plot(y_smooth, y_smooth_U, linestyle='--', label='PI Upper', color = 'red', alpha = 0.5)
+plt.plot(y_smooth, y_smooth_L, linestyle='--', label='PI Lower', color = 'red', alpha = 0.5)
 plt.xlabel("Prediction", fontsize=15)
 plt.ylabel("Truth", fontsize=15)
 lgnd = plt.legend()

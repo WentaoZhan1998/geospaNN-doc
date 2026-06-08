@@ -100,7 +100,7 @@ model = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nngls,
                        theta=torch.tensor(theta0))
 trainer_nngls = geospaNN.nngls_train(model, lr=0.1, min_delta=0.001)
 training_log = trainer_nngls.train(data_train, data_val, data_test, epoch_num= 200, 
-                                   Update_init=20, Update_step=5, seed = 2025)
+                                   Update_init=20, Update_step=10, seed = 2025)
 ```
 
 ```python
@@ -160,7 +160,7 @@ RMSE(estimate.detach().numpy(), funXY(X).reshape(-1).detach().numpy())
 
 
 
-    0.5564364208770987
+    0.9260114
 
 
 
@@ -172,6 +172,6 @@ RMSE(mlp_nn(X).detach().numpy(), funXY(X).reshape(-1).detach().numpy())
 
 
 
-    0.9576370212929225
+    1.1337072
 
 

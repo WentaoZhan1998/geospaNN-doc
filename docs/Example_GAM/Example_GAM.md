@@ -104,35 +104,6 @@ training_log = nn_model.train(data_train, data_val, data_test, seed = 2024)
 theta0 = geospaNN.theta_update(mlp_nn(data_train.x).squeeze() - data_train.y,data_train.pos, neighbor_size=20)
 ```
 
-    Epoch 00089: reducing learning rate of group 0 to 5.0000e-03.
-    INFO: Early stopping
-    End at epoch92
-    ---------------------------------------- 
-    	Ordering Coordinates 
-    ----------------------------------------
-    	Model description
-    ----------------------------------------
-    BRISC model fit with 600 observations.
-    
-    Number of covariates 1 (including intercept if specified).
-    
-    Using the exponential spatial correlation model.
-    
-    Using 15 nearest neighbors.
-    
-    
-    
-    Source not compiled with OpenMP support.
-    ----------------------------------------
-    	Building neighbor index
-    ----------------------------------------
-    	Performing optimization
-    ----------------------------------------
-    	Processing optimizers
-    ----------------------------------------
-    Theta estimated as
-    [0.88725394 2.87048584 0.04966461]
-
 
 
 ```python
@@ -143,7 +114,7 @@ RMSE(Est_NN, funXY(X_MISE))
 
 
 
-    0.3801058505234924
+    0.39721508737419925
 
 
 
@@ -158,123 +129,10 @@ mlp_nngls = torch.nn.Sequential(
     torch.nn.Linear(20, 1)
 )
 model_nngls = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nngls, theta=torch.tensor(theta0))
-nngls_model = geospaNN.nngls_train(model_nngls, lr=0.01, min_delta=0.001)
+nngls_model = geospaNN.nngls_train(model_nngls, lr=0.02, min_delta=0.001)
 training_log = nngls_model.train(data_train, data_val, data_test,
-                                 Update_init=20, Update_step=10, seed = 2024)
+                                 Update_init=10, Update_step=5, seed = 2024)
 ```
-
-    ---------------------------------------- 
-    	Ordering Coordinates 
-    ----------------------------------------
-    	Model description
-    ----------------------------------------
-    BRISC model fit with 600 observations.
-    
-    Number of covariates 1 (including intercept if specified).
-    
-    Using the exponential spatial correlation model.
-    
-    Using 15 nearest neighbors.
-    
-    
-    
-    Source not compiled with OpenMP support.
-    ----------------------------------------
-    	Building neighbor index
-    ----------------------------------------
-    	Performing optimization
-    ----------------------------------------
-    	Processing optimizers
-    ----------------------------------------
-    Theta estimated as
-    [0.93411162 2.81610403 0.00887926]
-    to
-    [0.93411162 2.81610403 0.00887926]
-    Epoch 00028: reducing learning rate of group 0 to 5.0000e-03.
-    ---------------------------------------- 
-    	Ordering Coordinates 
-    ----------------------------------------
-    	Model description
-    ----------------------------------------
-    BRISC model fit with 600 observations.
-    
-    Number of covariates 1 (including intercept if specified).
-    
-    Using the exponential spatial correlation model.
-    
-    Using 15 nearest neighbors.
-    
-    
-    
-    Source not compiled with OpenMP support.
-    ----------------------------------------
-    	Building neighbor index
-    ----------------------------------------
-    	Performing optimization
-    ----------------------------------------
-    	Processing optimizers
-    ----------------------------------------
-    Theta estimated as
-    [9.40861195e-01 2.77224716e+00 1.00000000e-03]
-    to
-    [9.40861195e-01 2.77224716e+00 1.00000000e-03]
-    ---------------------------------------- 
-    	Ordering Coordinates 
-    ----------------------------------------
-    	Model description
-    ----------------------------------------
-    BRISC model fit with 600 observations.
-    
-    Number of covariates 1 (including intercept if specified).
-    
-    Using the exponential spatial correlation model.
-    
-    Using 15 nearest neighbors.
-    
-    
-    
-    Source not compiled with OpenMP support.
-    ----------------------------------------
-    	Building neighbor index
-    ----------------------------------------
-    	Performing optimization
-    ----------------------------------------
-    	Processing optimizers
-    ----------------------------------------
-    Theta estimated as
-    [9.39615686e-01 2.78437448e+00 1.00000000e-03]
-    to
-    [9.39615686e-01 2.78437448e+00 1.00000000e-03]
-    Epoch 00049: reducing learning rate of group 0 to 2.5000e-03.
-    ---------------------------------------- 
-    	Ordering Coordinates 
-    ----------------------------------------
-    	Model description
-    ----------------------------------------
-    BRISC model fit with 600 observations.
-    
-    Number of covariates 1 (including intercept if specified).
-    
-    Using the exponential spatial correlation model.
-    
-    Using 15 nearest neighbors.
-    
-    
-    
-    Source not compiled with OpenMP support.
-    ----------------------------------------
-    	Building neighbor index
-    ----------------------------------------
-    	Performing optimization
-    ----------------------------------------
-    	Processing optimizers
-    ----------------------------------------
-    Theta estimated as
-    [9.38382339e-01 2.74115991e+00 1.00000000e-03]
-    to
-    [9.38382339e-01 2.74115991e+00 1.00000000e-03]
-    INFO: Early stopping
-    End at epoch52
 
 
 
@@ -286,7 +144,7 @@ RMSE(Est_NNGLS, funXY(X_MISE))
 
 
 
-    0.35517833944095023
+    0.24671619710539494
 
 
 

@@ -65,9 +65,9 @@ mlp_linear = torch.nn.Sequential(
     torch.nn.Linear(p, 1),
 )
 model_linear = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_linear, theta = torch.tensor(theta0))
-trainer_linear = geospaNN.nngls_train(model_linear, lr=0.01, min_delta=0.001)
+trainer_linear = geospaNN.nngls_train(model_linear, lr=0.05, min_delta=0.001)
 training_log = trainer_linear.train(data_train, data_val, data_test,
-                                        Update_init=10, Update_step=5)
+                                        Update_init=20, Update_step=5)
 ```
 
 ```python
@@ -78,7 +78,7 @@ mlp_l1_n5 = torch.nn.Sequential(
     torch.nn.Linear(5, 1)
 )
 nngls_l1_n5 = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_l1_n5, theta=torch.tensor(theta0))
-trainer_l1_n5 = geospaNN.nngls_train(nngls_l1_n5, lr=0.1, min_delta=0.001)
+trainer_l1_n5 = geospaNN.nngls_train(nngls_l1_n5, lr=0.05, min_delta=0.001)
 training_log = trainer_l1_n5.train(data_train, data_val, data_test,
                                    Update_init=20, Update_step=5, seed = 2024)
 ```
@@ -92,7 +92,7 @@ mlp_l1_n20 = torch.nn.Sequential(
 )
 nngls_l1_n20 = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_l1_n20, 
                               theta=torch.tensor(theta0))
-trainer_l1_n20 = geospaNN.nngls_train(nngls_l1_n20, lr=0.01, min_delta=0.001)
+trainer_l1_n20 = geospaNN.nngls_train(nngls_l1_n20, lr=0.05, min_delta=0.001)
 training_log = trainer_l1_n20.train(data_train, data_val, data_test,
                                     Update_init=20, Update_step=5, seed = 2024)
 ```
@@ -106,9 +106,9 @@ mlp_l1_n50 = torch.nn.Sequential(
 )
 nngls_l1_n50 = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_l1_n50, 
                               theta=torch.tensor(theta0))
-trainer_l1_n50 = geospaNN.nngls_train(nngls_l1_n50, lr=0.1, min_delta=0.001)
+trainer_l1_n50 = geospaNN.nngls_train(nngls_l1_n50, lr=0.05, min_delta=0.001)
 training_log = trainer_l1_n50.train(data_train, data_val, data_test,
-                                    Update_init=10, Update_step=5, seed = 2024)
+                                    Update_init=20, Update_step=5, seed = 2024)
 ```
 
 ```python
@@ -121,9 +121,9 @@ mlp_l2_n5_2 = torch.nn.Sequential(
     torch.nn.Linear(2, 1)
 )
 nngls_l2_n5_2 = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_l2_n5_2, theta=torch.tensor(theta0))
-trainer_l2_n5_2 = geospaNN.nngls_train(nngls_l2_n5_2, lr=0.1, min_delta=0.001)
+trainer_l2_n5_2 = geospaNN.nngls_train(nngls_l2_n5_2, lr=0.05, min_delta=0.001)
 training_log = trainer_l2_n5_2.train(data_train, data_val, data_test,
-                                     Update_init=10, Update_step=5, seed = 2024)
+                                     Update_init=20, Update_step=5, seed = 2024)
 ```
 
 ```python
@@ -136,9 +136,9 @@ mlp_l2_n50_20 = torch.nn.Sequential(
     torch.nn.Linear(20, 1)
 )
 nngls_l2_n50_20 = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_l2_n50_20, theta=torch.tensor(theta0))
-trainer_l2_n50_20 = geospaNN.nngls_train(nngls_l2_n50_20, lr=0.1, min_delta=0.001)
+trainer_l2_n50_20 = geospaNN.nngls_train(nngls_l2_n50_20, lr=0.05, min_delta=0.001)
 training_log = trainer_l2_n50_20.train(data_train, data_val, data_test,
-                                       Update_init=10, Update_step=5, seed = 2024)
+                                       Update_init=20, Update_step=5, seed = 2024)
 ```
 
 

@@ -75,36 +75,6 @@ model = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nn, th
 predict_nn = model.predict(data_train, data_test)
 ```
 
-    Epoch 00061: reducing learning rate of group 0 to 5.0000e-03.
-    Epoch 00068: reducing learning rate of group 0 to 2.5000e-03.
-    INFO: Early stopping
-    End at epoch71
-    ---------------------------------------- 
-    	Ordering Coordinates 
-    ----------------------------------------
-    	Model description
-    ----------------------------------------
-    BRISC model fit with 600 observations.
-    
-    Number of covariates 1 (including intercept if specified).
-    
-    Using the exponential spatial correlation model.
-    
-    Using 15 nearest neighbors.
-    
-    
-    
-    Source not compiled with OpenMP support.
-    ----------------------------------------
-    	Building neighbor index
-    ----------------------------------------
-    	Performing optimization
-    ----------------------------------------
-    	Processing optimizers
-    ----------------------------------------
-    Theta estimated as
-    [3.8977135  0.48003391 0.01919864]
-
 
 
 ```python
@@ -119,39 +89,12 @@ mlp_nngls = torch.nn.Sequential(
 model_nngls = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nngls, theta=torch.tensor(theta0))
 nngls_model = geospaNN.nngls_train(model_nngls, lr=0.1, min_delta=0.001)
 training_log = nngls_model.train(data_train, data_val, data_test,
-                                 Update_init=20, Update_step=10, seed = 2024)
+                                 Update_init=10, Update_step=5, seed = 2024)
 theta_hat = geospaNN.theta_update(mlp_nngls(data_train.x).squeeze() - data_train.y,
                                   data_train.pos, neighbor_size = 20)
 model = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nngls, theta=torch.tensor(theta_hat))
 predict_nngls = model.predict(data_train, data_test)
 ```
-
-    ---------------------------------------- 
-    	Ordering Coordinates 
-    ----------------------------------------
-    	Model description
-    ----------------------------------------
-    BRISC model fit with 600 observations.
-    
-    Number of covariates 1 (including intercept if specified).
-    
-    Using the exponential spatial correlation model.
-    
-    Using 15 nearest neighbors.
-    
-    
-    
-    Source not compiled with OpenMP support.
-    ----------------------------------------
-    	Building neighbor index
-    ----------------------------------------
-    	Performing optimization
-    ----------------------------------------
-    	Processing optimizers
-    ----------------------------------------
-    Theta estimated as
-    [3.74956068 0.58783613 0.05867977]
-    ...
 
 ```python
 print(theta_hat)
@@ -195,8 +138,6 @@ training_log = nn_add_model.train(data_add_train, data_add_val, data_add_test, s
 predict_nn_add = mlp_nn_add(data_add_test.x).detach().numpy().reshape(-1)
 ```
 
-    Epoch 00087: reducing learning rate of group 0 to 5.0000e-03.
-
 
 
 ```python
@@ -238,11 +179,6 @@ nn_DK_model = geospaNN.nn_train(mlp_nn_DK, lr=0.01, min_delta=0.001)
 training_log = nn_DK_model.train(data_DK_train, data_DK_val, data_DK_test, seed = 2024) 
 predict_DK = mlp_nn_DK(data_DK_test.x).detach().numpy().reshape(-1)
 ```
-
-    Epoch 00054: reducing learning rate of group 0 to 5.0000e-03.
-    Epoch 00061: reducing learning rate of group 0 to 2.5000e-03.
-    INFO: Early stopping
-    End at epoch64
 
 
 
@@ -289,11 +225,11 @@ print(f"RMSE nn-add-coordinates: {torch.mean((data_test.y - predict_nn_add)**2):
 print(f"RMSE nn-Deepkrig: {torch.mean((data_test.y - predict_DK)**2):.2f}")
 ```
 
-    RMSE nn-estimate:  2.98
+    RMSE nn-estimate:  2.96
     RMSE nngls:  0.45
-    RMSE nn+kriging: 0.52
-    RMSE nn-add-coordinates: 2.84
-    RMSE nn-Deepkrig: 1.59
+    RMSE nn+kriging: 0.51
+    RMSE nn-add-coordinates: 3.17
+    RMSE nn-Deepkrig: 1.97
 
 
 
@@ -382,7 +318,7 @@ for n in n_vec:
     model_nngls = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nngls, theta=torch.tensor(theta0))
     nngls_model = geospaNN.nngls_train(model_nngls, lr=0.1, min_delta=0.001)
     training_log = nngls_model.train(data_train, data_val, data_test,
-                                     Update_init=20, Update_step=10, seed = 2024)
+                                     Update_init=10, Update_step=5, seed = 2024)
     theta_hat = geospaNN.theta_update(mlp_nngls(data_train.x).squeeze() - data_train.y,
                                       data_train.pos, neighbor_size = 20)
     model = geospaNN.nngls(p=p, neighbor_size=nn, coord_dimensions=2, mlp=mlp_nngls, theta=torch.tensor(theta_hat))
@@ -443,38 +379,6 @@ for n in n_vec:
     MSE_nnadd.append(torch.mean((data_test.y - predict_nn_add)**2))
     MSE_nnDK.append(torch.mean((data_test.y - predict_DK)**2))
 ```
-
-    Epoch 00061: reducing learning rate of group 0 to 5.0000e-03.
-    Epoch 00068: reducing learning rate of group 0 to 2.5000e-03.
-    INFO: Early stopping
-    End at epoch71
-    ---------------------------------------- 
-    	Ordering Coordinates 
-    ----------------------------------------
-    	Model description
-    ----------------------------------------
-    BRISC model fit with 600 observations.
-    
-    Number of covariates 1 (including intercept if specified).
-    
-    Using the exponential spatial correlation model.
-    
-    Using 15 nearest neighbors.
-    
-    
-    
-    Source not compiled with OpenMP support.
-    ----------------------------------------
-    	Building neighbor index
-    ----------------------------------------
-    	Performing optimization
-    ----------------------------------------
-    	Processing optimizers
-    ----------------------------------------
-    Theta estimated as
-    [3.8977135  0.48003391 0.01919864]
-    ...
-
 
 
 ```python

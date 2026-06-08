@@ -4,14 +4,14 @@
 
 Python packages time, pandas, seaborn, geopandas, and matplotlib are required to run the following experiments.
 
--   A simple pipeline illsutrating the basic features of the package is available [here](Example_utils/Example_utils.md).
+-   A simple pipeline illsutrating the basic features of the package is available [here](Example_utils/Example_utils.md).[ (download)](https://github.com/WentaoZhan1998/geospaNN-doc/blob/main/docs/ipynb/Example_utils.ipynb)
 -   Several simulation examples are available, to illustrate the usage of geospaNN for different statistical tasks:
-    -   [Choice of neural network architectures.](Example_architecture/Example_architecture.md)
-    -   [Application on spatial linear mixed model (SPLMM).](Example_linear/Example_linear.md)
-    -   [Compare with the add-to-spatial-feature approaches.](Example_addcovariates_new/Example_addcovariates_new.md)
-    -   [Application on time series data.](Example_time/Example_time.md)
-    -   [Compare with GAM.](Example_GAM/Example_GAM.md)
-    -   [Partial depency plot (PDP)](Example_PDP/PDP.md)
+    -   [Choice of neural network architectures.](Example_architecture/Example_architecture.md)[ (download)](https://github.com/WentaoZhan1998/geospaNN-doc/blob/main/docs/ipynb/Example_architecture.ipynb)
+    -   [Application on spatial linear mixed model (SPLMM).](Example_linear/Example_linear.md)[ (download)](https://github.com/WentaoZhan1998/geospaNN-doc/blob/main/docs/ipynb/Example_linear.ipynb)
+    -   [Compare with the add-to-spatial-feature approaches.](Example_addcovariates_full/Example_addcovariates.md)[ (download)](https://github.com/WentaoZhan1998/geospaNN-doc/blob/main/docs/ipynb/Example_addcovariates.ipynb)
+    -   [Application on time series data.](Example_time/Example_time.md)[ (download)](https://github.com/WentaoZhan1998/geospaNN-doc/blob/main/docs/ipynb/Example_time.ipynb)
+    -   [Compare with GAM.](Example_GAM/Example_GAM.md)[ (download)](https://github.com/WentaoZhan1998/geospaNN-doc/blob/main/docs/ipynb/Example_GAM.ipynb)
+    -   [Partial depency plot (PDP)](Example_PDP/PDP.md)[ (download)](https://github.com/WentaoZhan1998/geospaNN-doc/blob/main/docs/ipynb/Example_PDP.ipynb)
     -   A real data experiment is shown [here](Example_realdata.md).
 
 In the real data experiment, the PM2.5 data is collected from the [U.S. Environmental Protection Agency](https://www.epa.gov/outdoor-air-quality-data/download-daily-data) datasets for each state are collected and bound together to obtain 'pm25_2022.csv'. daily PM2.5 files are subsets of 'pm25_2022.csv' produced by 'realdata_preprocess.py'. One can skip the preprocessing and use the daily files directory.
