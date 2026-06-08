@@ -287,51 +287,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#create-and-enter-virtual-environment-recommended" class="md-nav__link">
+  <a href="#approach-1-all-in-one-through-conda-recommended" class="md-nav__link">
     <span class="md-ellipsis">
-      Create and enter virtual environment (recommended)
+      Approach 1: all-in-one through conda (recommended)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#manual-dependency-installation" class="md-nav__link">
+  <a href="#approach-2-using-pip" class="md-nav__link">
     <span class="md-ellipsis">
-      Manual dependency installation
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Manual dependency installation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#option-1-using-conda" class="md-nav__link">
-    <span class="md-ellipsis">
-      Option 1: Using Conda
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-2-using-pip" class="md-nav__link">
-    <span class="md-ellipsis">
-      Option 2: Using pip
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#main-installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Main installation
+      Approach 2: using pip
     </span>
   </a>
   
@@ -343,9 +310,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#an-easy-running-sample" class="md-nav__link">
+  <a href="#an-easy-running-sample-functionality-verification" class="md-nav__link">
     <span class="md-ellipsis">
-      An easy running sample:
+      An easy running sample (functionality verification):
     </span>
   </a>
   
@@ -434,51 +401,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#create-and-enter-virtual-environment-recommended" class="md-nav__link">
+  <a href="#approach-1-all-in-one-through-conda-recommended" class="md-nav__link">
     <span class="md-ellipsis">
-      Create and enter virtual environment (recommended)
+      Approach 1: all-in-one through conda (recommended)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#manual-dependency-installation" class="md-nav__link">
+  <a href="#approach-2-using-pip" class="md-nav__link">
     <span class="md-ellipsis">
-      Manual dependency installation
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Manual dependency installation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#option-1-using-conda" class="md-nav__link">
-    <span class="md-ellipsis">
-      Option 1: Using Conda
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-2-using-pip" class="md-nav__link">
-    <span class="md-ellipsis">
-      Option 2: Using pip
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#main-installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Main installation
+      Approach 2: using pip
     </span>
   </a>
   
@@ -490,9 +424,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#an-easy-running-sample" class="md-nav__link">
+  <a href="#an-easy-running-sample-functionality-verification" class="md-nav__link">
     <span class="md-ellipsis">
-      An easy running sample:
+      An easy running sample (functionality verification):
     </span>
   </a>
   
@@ -516,69 +450,74 @@
   <h1>How to start</h1>
 
 <h2 id="installation">Installation</h2>
-<h3 id="create-and-enter-virtual-environment-recommended">Create and enter virtual environment (recommended)</h3>
-<p>Step 1: If you haven't installed anaconda on your machine, refer to this <a href="https://docs.anaconda.com/anaconda/install/">doc</a>, follow the instruction, 
-and install the right version.</p>
-<p>Step 2: Create the conda virtual environment. Refer to this <a href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">doc</a>. Example:</p>
+<p>We provide two straightforward installation approaches: via conda and via pip.
+Depending on your system setup, it is possible to combine both methods, but be aware that mixing Conda and Pip installations can sometimes lead to dependency conflicts. Proceed with caution and ensure that package versions remain compatible.</p>
+<h3 id="approach-1-all-in-one-through-conda-recommended">Approach 1: all-in-one through conda (recommended)</h3>
+<ol>
+<li>If you haven't installed anaconda on your machine, refer to this <a href="https://docs.anaconda.com/anaconda/install/">doc</a> follow the instruction 
+and install the right version.</li>
+<li>Create the conda virtual environment from the <a href="https://github.com/WentaoZhan1998/geospaNN/blob/main/environment.yml">environment.yml</a> file in this repository. You can specify your environment name by editing "env_name" on the first line of the yml file.
+Example:</li>
+</ol>
 <pre><code># bash
-conda create -n [name of your environment] python=3.10
+conda env create -f environment.yml
 </code></pre>
-<p>Step 3: Enter the virtual environment by running:</p>
+<p>Note:
+For Apple Silicon users on a Mac with an Apple M-series (ARM64) chip, you can improve performance by explicitly creating the environment for the ARM architecture instead:</p>
+<pre><code># bash
+conda env create -f environment.yml --subdir osx-arm64
+</code></pre>
+<p>For more details on creating a conda environment, refer to this <a href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">doc</a>.
+3. Enter the virtual environment by running:</p>
 <pre><code># bash
 conda activate [name of your environment]
 </code></pre>
-<p>Step 4: In the current version of geospaNN, to use the R-package <a href="https://github.com/ArkajyotiSaha/BRISC">BRISC</a> 
-for spatial parameter estimation (through rpy2), we need R installed in the environment. In order to install R, simply run:</p>
+<h3 id="approach-2-using-pip">Approach 2: using pip</h3>
+<p>(Currently) to avoid running issue, matched PyTorch and PyG libraries are needed, requiring us to install torch and pyg library manually.</p>
+<ol>
+<li>For pip, installation in the following order is recommended to avoid any compilation issue.
+The following chunk has been tested in a python 3.10 environment.</li>
+</ol>
 <pre><code># bash
-conda install r-base
+pip install numpy torch==2.7 torch_geometric
+pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.7.0+cpu.html
 </code></pre>
-<p>If you already have native R installed, it's also possible to manually initialize R for rpy2. 
-See <a href="https://rpy2.github.io/doc/latest/html/overview.html#install-installation">here</a> for more details.</p>
-<h3 id="manual-dependency-installation">Manual dependency installation</h3>
-<p>(Currently) to install the development version of the package, a pre-installed PyTorch and PyG libraries are needed.
-We provide options to install PyG libraries using conda and pip.</p>
-<h4 id="option-1-using-conda">Option 1: Using Conda</h4>
-<p>For conda, installation in the following order is recommended. It may take around 10 minutes for conda to solve the environment for pytorch-sparse.
-The following chunk has been tested in a python 3.10 environment.</p>
-<pre><code>#bash
-conda install pytorch torchvision -c pytorch
-conda install pyg -c pyg        
-conda install pytorch-sparse -c pyg 
-</code></pre>
-<h4 id="option-2-using-pip">Option 2: Using pip</h4>
-<p>For pip, installation in the following order is recommended to avoid any compilation issue. It may take around 15 minutes to finish the installation.
-The following chunk has been tested in a python 3.10 environment.</p>
+<ol>
+<li>Once PyTorch and PyG are successfully installed, use the following command in the terminal for the latest version (version 04/2025):</li>
+</ol>
 <pre><code># bash
-pip install numpy==1.26 --no-cache-dir
-pip install torch==2.0.0 --no-cache-dir
-pip install torch-scatter -f https://data.pyg.org/whl/torch-2.0.0.html --no-cache-dir
-pip install torch-sparse -f https://data.pyg.org/whl/torch-2.0.0.html --no-cache-dir
-pip install torch-cluster -f https://data.pyg.org/whl/torch-2.0.0.html --no-cache-dir
-pip install torch_geometric --no-cache-dir
+pip install https://github.com/WentaoZhan1998/geospaNN/archive/main.zip
 </code></pre>
-<!---
-1. To install PyTorch, find and install the binary suitable for your machine [here](https://pytorch.org/).
-2. Then to install the PyG library, find and install the proper binary [here](https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html).
-3. Make sure to also install the dependencies including *pyg_lib*, *torch_scatter*, *torch_sparse*, *torch_cluster*, and *torch_spline_conv*.
--->
-
-<h3 id="main-installation">Main installation</h3>
-<p>Once PyTorch and PyG are successfully installed, use the following command in the terminal for the latest version (version 11/2024):</p>
-<pre><code>pip install https://github.com/WentaoZhan1998/geospaNN/archive/main.zip
+<p>To install the pypi version, use the following command in the terminal (version 04/2025):</p>
+<pre><code># bash
+pip install geospaNN
 </code></pre>
-<p>To install the pypi version, use the following command in the terminal (version 1/2024):</p>
-<pre><code>pip install geospaNN
+<ol>
+<li>(Skip if you already have R ready to use). The current version of <strong>geospaNN</strong> uses R-package <a href="https://github.com/ArkajyotiSaha/BRISC">BRISC</a> 
+for spatial parameter estimation through rpy2, thus requiring R installed in the environment. To install an R version compatible with your Python and system architecture, Mac users can check their architecture with:</li>
+</ol>
+<pre><code># bash
+python -c &quot;import platform; print(platform.machine())&quot;
 </code></pre>
-<h2 id="an-easy-running-sample">An easy running sample:</h2>
-<p>First, run python in the terminal:</p>
+<p>Then download the appropriate R installer from <a href="https://cran.r-project.org/bin/macosx/">CRAN for macOS</a>. Windows users can download R from <a href="https://cran.r-project.org/bin/windows/base/">CRAN for Windows</a>. 
+4. If rpy2 cannot find your R installation, you may need to set the R home directory manually. First, find R’s home path by running in terminal:</p>
+<pre><code># bash
+R R_HOME
+</code></pre>
+<p>Then, set this directory in your Python environment before importing <strong>geospaNN</strong>:</p>
+<pre><code># bash
+python -c &quot;import os; os.environ[&quot;R_HOME&quot;] = [R home path]&quot;
+</code></pre>
+<p>Make sure to use the path to the correct R.</p>
+<h2 id="an-easy-running-sample-functionality-verification">An easy running sample (functionality verification):</h2>
+<p>This is a simple running sample to check the functionality of the package.
+First, run python in the terminal:</p>
 <pre><code>python
 </code></pre>
-<p>import the modules and set up the parameters</p>
-<ol>
-<li>Define the Friedman's function, and specify the dimension of input covariates.</li>
-<li>Set the parameters for the spatial process.</li>
-<li>Set the hyperparameters of the data.</li>
-</ol>
+<p>import the modules and set up the parameters
+1. Define the Friedman's function, and specify the dimension of input covariates.
+2. Set the parameters for the spatial process.
+3. Set the hyperparameters of the data.</p>
 <pre><code>import torch
 import geospaNN
 import numpy as np
@@ -597,7 +536,6 @@ theta = torch.tensor([sigma, phi, tau])
 # 3.
 n = 1000            # Size of the simulated sample.
 nn = 20             # Neighbor size used for NNGP.
-batch_size = 50     # Batch size for training the neural networks.
 </code></pre>
 <p>Next, simulate and split the data.</p>
 <ol>
@@ -620,13 +558,11 @@ data = geospaNN.make_graph(X, Y, coord, nn)
 data_train, data_val, data_test = geospaNN.split_data(X, Y, coord, neighbor_size=20,
                                                    test_proportion=0.2)
 </code></pre>
-<p>Compose the mlp structure and train easily.</p>
-<ol>
-<li>Define the mlp structure (torch.nn) to use.</li>
-<li>Define the NN-GLS corresponding model.</li>
-<li>Define the NN-GLS training class with learning rate and tolerance.</li>
-<li>Train the model.</li>
-</ol>
+<p>Compose the mlp structure and train easily.
+1. Define the mlp structure (torch.nn) to use.
+2. Define the NN-GLS corresponding model.
+3. Define the NN-GLS training class with learning rate and tolerance.
+4. Train the model.</p>
 <pre><code># 1.             
 mlp = torch.nn.Sequential(
     torch.nn.Linear(p, 50),

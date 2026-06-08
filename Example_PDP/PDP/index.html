@@ -336,7 +336,7 @@ Lambda = 0.01
 theta = torch.tensor([sigma, phi / np.sqrt(2), Lambda])
 </code></pre>
 <pre><code class="language-python"># Simulate data
-torch.manual_seed(2024)
+torch.manual_seed(2026)
 X, Y, coord, cov, corerr = geospaNN.Simulation(n, p, nn, funXY, theta, range=[0, b])
 
 # Preprocess data
@@ -344,7 +344,7 @@ random.seed(2024)
 X, Y, coord, _ = geospaNN.spatial_order(X, Y, coord, method='max-min')
 data = geospaNN.make_graph(X, Y, coord, nn)
 
-torch.manual_seed(2024)
+torch.manual_seed(2026)
 np.random.seed(0)
 data_train, data_val, data_test = geospaNN.split_data(X, Y, coord, neighbor_size=nn,
                                                       test_proportion=0.2)
@@ -360,7 +360,7 @@ mlp_nn = torch.nn.Sequential(
     torch.nn.ReLU(),
     torch.nn.Linear(20, 1)
 )
-trainer_nn = geospaNN.nn_train(mlp_nn, lr=0.01, min_delta=0.001)
+trainer_nn = geospaNN.nn_train(mlp_nn, lr=0.05, min_delta=0.001)
 training_log = trainer_nn.train(data_train, data_val, data_test, seed = 2)
 theta0 = geospaNN.theta_update(mlp_nn(data_train.x).squeeze() - data_train.y, data_train.pos, neighbor_size=20)
 </code></pre>
